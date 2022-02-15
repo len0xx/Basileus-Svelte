@@ -1,0 +1,40 @@
+<aside class:opened={opened}>
+    <ul>
+        <a href="/"><li>Home</li></a>
+        <a href="/about"><li>About</li></a>
+        <a href="/new"><li>New post</li></a>
+    </ul>
+</aside>
+
+<script lang="ts">
+    export let opened: boolean
+</script>
+
+<style lang="sass">
+    aside
+        display: block
+        position: absolute
+        left: 0
+        top: 0
+        height: 100%
+        width: 300px
+        background-color: #fff
+        z-index: 10
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1)
+        transform: translateX(-305px)
+        transition: 0.1s ease-in-out
+        padding: 1em 0
+
+    ul
+        list-style-type: none
+        padding: 0
+        li
+            padding: 1em 2em
+            background-color: rgba(0, 0, 0, 0)
+            transition: 0.1s ease-in-out
+            &:hover
+                background-color: rgba(0, 20, 110, 0.06)
+
+    :global(aside.opened)
+        transform: translateX(0) !important
+</style>
