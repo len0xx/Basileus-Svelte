@@ -32,6 +32,11 @@
 
 	.not-found
 		text-align: center
+
+	a
+		color: blue
+		&:hover
+			text-decoration: underline
 </style>
 
 { #if (posts.length) }
@@ -43,5 +48,5 @@
 		{/each}
 	</div>
 { :else }
-	<div class="not-found">No posts found</div>
+	<div class="not-found">No posts found. <a href="/new">Create your first post</a></div>
 {/if}

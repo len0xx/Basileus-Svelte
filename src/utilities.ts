@@ -28,3 +28,11 @@ export function cutPostText(text: string): string {
         return result + '...'
     }
 }
+
+export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
+
+export function transformFormData(form: FormData): any {
+    let object: any = {}
+    form.forEach((value, key) => object[key] = value)
+    return object
+}
