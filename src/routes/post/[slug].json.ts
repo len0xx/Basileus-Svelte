@@ -17,3 +17,32 @@ export async function get(req: Request, res: Response) {
         })
     }
 }
+
+export async function del(req: Request, res: Response) {
+    try {
+        const slug = req.params.slug
+
+        const post = await Post.findOne({ slug: slug })
+        
+        if (post) {
+            await Post.deleteOne({ slug: slug })
+
+            res.json({
+                ok: true,
+                message: 'Post deleted'
+            })
+        }
+        else {
+            res.json({
+                ok: false,
+                error: 'Post not found'
+            })
+        }
+    }
+    catch (err) {
+        res.json({
+            ok: false,
+            error: 'Unexpected error'
+        })
+    }
+}

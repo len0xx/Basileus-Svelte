@@ -48,3 +48,11 @@ code {
 		font-size: 16px;
 	}
 }
+
+p.success {
+	color: rgb(40, 180, 40)
+}
+
+p.error {
+	color: rgb(180, 40, 40)
+}

@@ -1,3 +1,5 @@
+import jquery from 'jquery'
+
 export function formatSlug(input: string): string {
     const date = new Date()
     let tokens = input.trim()
@@ -18,21 +20,61 @@ export function formatSlug(input: string): string {
 }
 
 export function cutPostText(text: string): string {
-    if (text.length < 100) {
+    const maxTextLength = 100
+    const maxWordsLength = 30
+
+    if (text.length < maxTextLength) {
         return text
     }
     else {
         let words: string[] = text.split(' ')
-        words.splice(30)
+        words.splice(maxWordsLength)
         const result: string = words.join(' ')
         return result + '...'
     }
 }
 
-export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
+export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
 export function transformFormData(form: FormData): any {
     let object: any = {}
     form.forEach((value, key) => object[key] = value)
     return object
+}
+
+export type DefaultAJAXResponse = {
+    ok: boolean,
+    message: string,
+    error?: string
+}
+
+export function sendAJAXRequest(
+    url: string,
+    method: RESTMethod,
+    data: FormData,
+    callbackSuccess?: (res: DefaultAJAXResponse) => void,
+    callbackError?: (res: string) => void
+): void {
+    const request = jquery.ajax({
+        url: url,
+        contentType: 'application/x-www-form-urlencoded',
+        type: method,
+        data: transformFormData(data),
+        dataType: 'json'
+    })
+
+    request.done((res) => {
+        if (res.ok) {
+            callbackSuccess(res)
+        }
+        else {
+            callbackError(res)
+            console.error(res)
+        }
+    })
+
+    request.fail((jqXHR, res) => {
+        callbackError(res)
+        console.error(res)
+    })
 }

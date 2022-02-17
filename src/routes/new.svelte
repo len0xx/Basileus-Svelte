@@ -33,11 +33,6 @@
         margin-bottom: 1em
         min-width: 100%
 
-    .success
-        color: rgb(40, 180, 40)
-    .error
-        color: rgb(180, 40, 40)
-
 	input[type="text"]
         border-radius: 4px
         border: 1px solid rgb(100, 130, 200)
@@ -47,7 +42,7 @@
 
 </style>
 
-<AjaxForm action="new.ajax" method="POST" on:successSubmit={handleSuccess} on:error={handleError}>
+<AjaxForm action="new.ajax" method="POST" on:success={handleSuccess} on:error={handleError}>
     { #if success }
         <p class="success">The post has been successfully created</p>
     { :else if errorText }

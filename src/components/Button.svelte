@@ -1,9 +1,19 @@
-<button type={actionType}>
+<button type={actionType} class={className} on:click>
     <slot></slot>
 </button>
 
 <script lang="ts">
     export let actionType: string
+    export let variant: string = 'primary'
+
+    let className: string
+
+    if (variant == 'danger') {
+        className = 'red'
+    }
+    else if (variant == 'primary') {
+        className = 'blue'
+    }
 </script>
 
 <style lang="sass">
@@ -20,5 +30,12 @@
         &:hover
             background-color: transparent
             color: #1e2fe6
+        &.red
+            background-color: #bf190d
+            border-color: #bf190d
+            color: white
+            &:hover
+                background-color: transparent
+                color: #bf190d
             
 </style>

@@ -1,6 +1,6 @@
 {
-  "name": "bloomberg",
-  "description": "Bloomberg clone application",
+  "name": "basileus",
+  "description": "Simple blog application",
   "version": "0.0.2",
   "esModuleInterop": true,
   "scripts": {
