@@ -65,16 +65,16 @@ export function sendAJAXRequest(
 
     request.done((res) => {
         if (res.ok) {
-            callbackSuccess(res)
+            if (callbackSuccess) callbackSuccess(res)
         }
         else {
-            callbackError(res)
+            if (callbackError) callbackError(res)
             console.error(res)
         }
     })
 
     request.fail((jqXHR, res) => {
-        callbackError(res)
+        if (callbackError) callbackError(res)
         console.error(res)
     })
 }
