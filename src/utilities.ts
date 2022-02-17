@@ -44,6 +44,7 @@ export function transformFormData(form: FormData): any {
 
 export type DefaultAJAXResponse = {
     ok: boolean,
+    response?: any,
     message: string,
     error?: string
 }
