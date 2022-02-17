@@ -2,7 +2,7 @@
 
 Basileus is just a random name for the project. The project itself represents the simple blog application
 
-# sapper-template
+## sapper-template
 
 The default template for setting up a [Sapper](https://github.com/sveltejs/sapper) project. Can use either Rollup or webpack as bundler.
 
