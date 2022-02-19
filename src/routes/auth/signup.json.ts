@@ -13,9 +13,11 @@ export async function post(req: Request, res: Response) {
         
 		user.save((err: any) => {
 			if (err) {
-				res.status(401).json({
+				// let errors = Object.values(err.errors).map((el: any) => el.message)
+				console.error(err)
+				res.json({
 					ok: false,
-					error: 'User wasn\'t created'
+					error: 'Error'
 				})
 			} else {
 				res.json({
@@ -27,7 +29,7 @@ export async function post(req: Request, res: Response) {
 	}
 	catch(err) {
 		console.error(err)
-		res.status(500).json({
+		res.json({
 			ok: false,
 			error: 'Unexpected error'
 		})

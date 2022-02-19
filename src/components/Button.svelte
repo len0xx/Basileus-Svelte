@@ -3,7 +3,7 @@
 </button>
 
 <script lang="ts">
-    export let actionType: string
+    export let actionType = 'submit'
     export let variant = 'primary'
 
     let className: string

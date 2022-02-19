@@ -11,10 +11,11 @@ export async function get(req: Request, res: Response) {
 		})
 
 		if (!user) {
-			res.status(404).json({
+			res.json({
 				ok: false,
-				error: 'Not found'
+				error: 'The user with such email doesn\'t exist'
 			})
+			return
 		}
 
 		const passwordIsValid = bcrypt.compareSync(
@@ -23,10 +24,11 @@ export async function get(req: Request, res: Response) {
 		)
 
 		if (!passwordIsValid) {
-			res.status(401).json({
+			res.json({
 				ok: false,
 				error: 'Invalid password'
 			})
+			return
 		}
 
 		const token = jwt.sign({

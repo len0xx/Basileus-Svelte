@@ -26,6 +26,8 @@
 
 <style lang="sass"></style>
 
+<h1>New post</h1>
+
 <AjaxForm action="new.json" method="POST" on:success={handleSuccess} on:error={handleError}>
     { #if success }
         <p class="success">The post has been successfully created</p>

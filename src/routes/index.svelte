@@ -5,10 +5,10 @@
 		text: string
 	}
 
-export function preload() {
-		return this.fetch('posts.json').then((r: { json: () => any; }) => r.json()).then((posts: Post[]) => {
-			return { posts }
-		})
+	export async function preload() {
+		const postsResponse = await this.fetch('posts.json')
+		const posts = await postsResponse.json()
+		return { posts }
 	}
 </script>
 

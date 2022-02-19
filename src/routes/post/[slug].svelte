@@ -6,10 +6,10 @@
 		text: string
 	}
 
-	export function preload({ params: { slug } }) {
-		return this.fetch(`post/${slug}.json`).then((r: { json: () => any; }) => r.json()).then((post: PostObject) => {
-			return { post }
-		})
+	export async function preload({ params: { slug } }) {
+		const postResponse = await this.fetch(`post/${slug}.json`)
+		const post = await postResponse.json()
+		return { post }
 	}
 </script>
 

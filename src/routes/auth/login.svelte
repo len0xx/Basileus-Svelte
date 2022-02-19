@@ -20,6 +20,7 @@
     import Button from '../../components/Button.svelte'
 
     let success = false
+    let errorText = ''
 
     const handleSuccess = () => {
     	success = true
@@ -27,13 +28,19 @@
     		window.location.href = '/profile'
     	}, 500)
     }
+
+    const handleError = (event: CustomEvent<any>) => {
+    	errorText = event.detail.error
+    }
 </script>
 
 <h1>Log in</h1>
 
-<AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess}>
+<AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess} on:error={handleError}>
     { #if success }
         <p class="success">Logged in successfully</p>
+    { :else if errorText }
+        <p class="error">{ errorText }</p>
     {/if }
     <label for="email">Email:</label><br>
     <input type="email" name="email" required><br>

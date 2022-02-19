@@ -1,4 +1,4 @@
-import jquery from 'jquery'
+import { ajax } from 'jquery'
 import axios from 'axios'
 import { BASE_URL } from './config'
 import type { User } from './models/user'
@@ -63,7 +63,7 @@ export function sendAJAXRequest(
 	callbackSuccess?: (res: DefaultAJAXResponse) => void,
 	callbackError?: (res: string) => void
 ): void {
-	const request = jquery.ajax({
+	const request = ajax({
 		url: url,
 		contentType: 'application/x-www-form-urlencoded',
 		headers: headers || {},
