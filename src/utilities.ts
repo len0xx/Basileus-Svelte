@@ -3,6 +3,7 @@ import axios from 'axios'
 import { BASE_URL } from './config'
 import type { User } from './models/user'
 
+// Create slug from the title
 export function formatSlug(input: string): string {
     const date = new Date()
     let tokens = input.trim()
@@ -22,6 +23,7 @@ export function formatSlug(input: string): string {
     return tokens.join('-')
 }
 
+// Cut the long text into short version
 export function cutPostText(text: string): string {
     const maxTextLength = 100
     const maxWordsLength = 30
@@ -39,6 +41,7 @@ export function cutPostText(text: string): string {
 
 export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
+// Create a plain JSON from FormData
 export function transformFormData(form: FormData): any {
     let object: any = {}
     form.forEach((value, key) => object[key] = value)
@@ -96,6 +99,7 @@ export interface Session {
     token?: string
 }
 
+// Verify the token and authorize the user
 export async function authorize(session: Session): Promise<{ user: User | undefined }> {
     const token = session.token
 

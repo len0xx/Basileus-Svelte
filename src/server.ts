@@ -3,7 +3,7 @@ import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import * as sapper from '@sapper/server'
-import type { Request, Response, NextFunction } from 'express'
+import type { Request, Response } from 'express'
 
 import mongoose from 'mongoose'
 import express from 'express'
@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression({ threshold: 0 }))
 app.use(sirv('static', { dev }))
 app.use(sapper.middleware({
+    // Create user session
     session: (req: Request, res: Response) => ({
         token: req.cookies['token']
     })

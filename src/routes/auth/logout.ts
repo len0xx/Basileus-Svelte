@@ -5,7 +5,7 @@ export async function get(req: Request, res: Response) {
         const token = req.cookies['token']
 
         if (token) {
-            res.cookie('token', '')
+            res.clearCookie('token')
             res.redirect('/')
         }
     }

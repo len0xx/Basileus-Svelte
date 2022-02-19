@@ -1,5 +1,10 @@
 import mongoose from 'mongoose'
 
+export enum UserRole {
+    USER = 'user',
+    ADMIN = 'admin'
+} 
+
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -21,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: [UserRole.ADMIN, UserRole.USER],
         default: 'user'
     },
     password: {
@@ -36,24 +41,27 @@ const userSchema = new mongoose.Schema({
 
 export const UserModel = mongoose.model('User', userSchema)
 
+// Backend model
 export interface UserObject {
     _id: string,
     firstname: string,
     lastname: string,
     email: string,
-    role: 'user' | 'admin',
+    role: UserRole,
     password: string,
     created: Date
 }
 
+// Frontend model
 export interface User {
     id: string,
     firstname: string,
     lastname: string,
     email: string,
-    role: 'user' | 'admin'
+    role: UserRole
 }
 
+// Convert UserObject to User
 export function getPublicUserModel(user: UserObject): User {
     return {
         id: user._id,
