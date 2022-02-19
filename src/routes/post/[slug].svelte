@@ -26,6 +26,7 @@
 			`/post/${post.slug}.json`,
 			'DELETE',
 			formData,
+			null,
 			() => active = false,
 			() => alert('Unexpected error occurred while deleting. Please try again later')
 		)

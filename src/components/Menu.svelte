@@ -3,10 +3,20 @@
         <a href="/"><li>Home</li></a>
         <a href="/about"><li>About</li></a>
         <a href="/new"><li>New post</li></a>
+        { #if user }
+            <a href="/profile"><li>Profile</li></a>
+            <a href="/auth/logout"><li>Log out</li></a>
+        { :else }
+            <a href="/auth/login"><li>Log in</li></a>
+            <a href="/auth/signup"><li>Sign up</li></a>
+        {/if }
     </ul>
 </aside>
 
 <script lang="ts">
+    import type { User } from '../models/user'
+
+    export let user: User | undefined = undefined
     export let opened: boolean
 </script>
 

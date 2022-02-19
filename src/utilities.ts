@@ -1,4 +1,7 @@
 import jquery from 'jquery'
+import axios from 'axios'
+import { BASE_URL } from './config'
+import type { User } from './models/user'
 
 export function formatSlug(input: string): string {
     const date = new Date()
@@ -52,15 +55,17 @@ export type DefaultAJAXResponse = {
 export function sendAJAXRequest(
     url: string,
     method: RESTMethod,
-    data: FormData,
+    data?: FormData | null,
+    headers?: JQuery.PlainObject<string> | null,
     callbackSuccess?: (res: DefaultAJAXResponse) => void,
     callbackError?: (res: string) => void
 ): void {
     const request = jquery.ajax({
         url: url,
         contentType: 'application/x-www-form-urlencoded',
+        headers: headers || {},
         type: method,
-        data: transformFormData(data),
+        data: data ? transformFormData(data) : {},
         dataType: 'json'
     })
 
@@ -78,4 +83,38 @@ export function sendAJAXRequest(
         if (callbackError) callbackError(res)
         console.error(res)
     })
+}
+
+export interface Page {
+    host: string,
+    path: string,
+    params?: any,
+    query?: any
+}
+
+export interface Session {
+    token?: string
+}
+
+export async function authorize(session: Session): Promise<{ user: User | undefined }> {
+    const token = session.token
+
+    try {
+        const response: any = await axios.get(`${BASE_URL}/auth/verify`,
+            {
+                headers: {
+                    'Authorization': token ? `Bearer ${token}` : ''
+                }
+            }
+        )
+        if (token) {
+            return {
+                user: response.data.ok ? response.data.user : undefined
+            }
+        }
+    }
+    catch (err) {
+        // Handle the error
+        // console.error('An error occurred while authorizing the user')
+    }
 }

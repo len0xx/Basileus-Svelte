@@ -1,8 +1,18 @@
+<script context="module" lang="ts">
+    import { authorize } from '../utilities'
+	import type { User } from '../models/user'
+    import type { Page, Session } from '../utilities'
+
+    export const preload = async (page: Page, session: Session) => await authorize(session)
+</script>
+
 <script lang="ts">
 	import Header from '../components/Header.svelte'
 	import Menu from '../components/Menu.svelte'
 	import Footer from '../components/Footer.svelte'
 
+	export let user: User | undefined = undefined
+	
 	let menuOpened = false
 
 	const toggleMenu = () => menuOpened = !menuOpened
@@ -28,7 +38,7 @@
 <Header on:menuClicked={toggleMenu} />
 
 <main>
-	<Menu opened={menuOpened} />
+	<Menu opened={menuOpened} {user} />
 	<div class="content-wrapper" on:click={closeMenu}>
 		<section class="content">
 			<slot></slot>

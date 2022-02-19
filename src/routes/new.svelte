@@ -24,25 +24,9 @@
 	<title>Create a new post</title>
 </svelte:head>
 
-<style lang="sass">
-    textarea
-        border-radius: 4px
-        border: 1px solid rgb(100, 130, 200)
-        padding: 6px 10px
-        min-width: 300px
-        margin-bottom: 1em
-        min-width: 100%
+<style lang="sass"></style>
 
-	input[type="text"]
-        border-radius: 4px
-        border: 1px solid rgb(100, 130, 200)
-        padding: 6px 10px
-        min-width: 300px
-        margin-bottom: 1em
-
-</style>
-
-<AjaxForm action="new.ajax" method="POST" on:success={handleSuccess} on:error={handleError}>
+<AjaxForm action="new.json" method="POST" on:success={handleSuccess} on:error={handleError}>
     { #if success }
         <p class="success">The post has been successfully created</p>
     { :else if errorText }
