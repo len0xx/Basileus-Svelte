@@ -1,3 +1,16 @@
+<script context="module" lang="ts">
+    import { authorize } from '../../utilities'
+    import type { Page, Session } from '../../utilities'
+
+    export async function preload(page: Page, session: Session) {
+        const authorization = await authorize(session)
+
+        const loggedIn: boolean = !!(authorization && authorization.user)
+
+        if (loggedIn) this.redirect(302, '/profile')
+    }
+</script>
+
 <svelte:head>
 	<title>Basileus – Sign up</title>
 </svelte:head>
