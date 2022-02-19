@@ -1,14 +1,13 @@
 {
   "name": "basileus",
   "description": "Simple blog application",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "esModuleInterop": true,
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build",
-    "dev-start": "nodemon __sapper__/build",
     "validate": "svelte-check --ignore src/node_modules/@sapper"
   },
   "dependencies": {
@@ -22,7 +21,6 @@
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.2",
-    "node-fetch": "^3.2.0",
     "node-sass": "^7.0.1",
     "sass": "^1.49.7",
     "sirv": "^1.0.0"
