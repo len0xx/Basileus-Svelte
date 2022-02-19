@@ -13,8 +13,6 @@ export async function post(req: Request, res: Response) {
         
 		user.save((err: any) => {
 			if (err) {
-				// let errors = Object.values(err.errors).map((el: any) => el.message)
-				console.error(err)
 				res.json({
 					ok: false,
 					error: 'Error'
