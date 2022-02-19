@@ -1,18 +1,18 @@
 <script context="module" lang="ts">
     import { authorize } from '../../utilities'
     import type { Page, Session } from '../../utilities'
-	import type { User } from '../../models/user'
+import type { User } from '../../models/user'
 
     export async function preload(page: Page, session: Session) {
-        const authorization = await authorize(session)
+    	const authorization = await authorize(session)
 
-        const loggedIn: boolean = !!(authorization && authorization.user)
+    	const loggedIn = !!(authorization && authorization.user)
 
-        if (!loggedIn) {
-            this.redirect(302, '/auth/login')
-        }
+    	if (!loggedIn) {
+    		this.redirect(302, '/auth/login')
+    	}
 
-        return authorization
+    	return authorization
     }
 </script>
 

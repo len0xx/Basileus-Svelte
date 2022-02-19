@@ -1,22 +1,22 @@
 <script lang="ts">
-    import AjaxForm from '../components/AjaxForm.svelte';
+    import AjaxForm from '../components/AjaxForm.svelte'
     import Button from '../components/Button.svelte'
     import * as ERRORS from '../errors'
 
     let success = false
     let errorText = ''
 
-    const handleSuccess = (event: CustomEvent<any>) => success = true
+    const handleSuccess = () => success = true
 
     const handleError = (event: CustomEvent<any>) => {
-        const error = event.detail.error
+    	const error = event.detail.error
 
-        if (error == ERRORS.EMPTY_FIELDS) {
-            errorText = 'Error: Required fields are empty'
-        }
-        else {
-            errorText = 'Unexpected error occurred. Please try again later'
-        }
+    	if (error == ERRORS.EMPTY_FIELDS) {
+    		errorText = 'Error: Required fields are empty'
+    	}
+    	else {
+    		errorText = 'Unexpected error occurred. Please try again later'
+    	}
     }
 </script>
 

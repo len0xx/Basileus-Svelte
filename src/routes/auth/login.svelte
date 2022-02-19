@@ -3,11 +3,11 @@
     import type { Page, Session } from '../../utilities'
 
     export async function preload(page: Page, session: Session) {
-        const authorization = await authorize(session)
+    	const authorization = await authorize(session)
 
-        const loggedIn: boolean = !!(authorization && authorization.user)
+    	const loggedIn = !!(authorization && authorization.user)
 
-        if (loggedIn) this.redirect(302, '/profile')
+    	if (loggedIn) this.redirect(302, '/profile')
     }
 </script>
 
@@ -22,17 +22,16 @@
     let success = false
 
     const handleSuccess = () => {
-        success = true
-        setTimeout(() => {
-            window.location.href = '/profile'
-        }, 500)
+    	success = true
+    	setTimeout(() => {
+    		window.location.href = '/profile'
+    	}, 500)
     }
-    const handleError = () => {}
 </script>
 
 <h1>Log in</h1>
 
-<AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess} on:error={handleError}>
+<AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess}>
     { #if success }
         <p class="success">Logged in successfully</p>
     {/if }

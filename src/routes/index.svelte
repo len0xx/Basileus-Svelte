@@ -5,8 +5,8 @@
 		text: string
 	}
 
-    export function preload() {
-		return this.fetch(`posts.json`).then((r: { json: () => any; }) => r.json()).then((posts: Post[]) => {
+export function preload() {
+		return this.fetch('posts.json').then((r: { json: () => any; }) => r.json()).then((posts: Post[]) => {
 			return { posts }
 		})
 	}

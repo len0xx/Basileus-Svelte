@@ -4,15 +4,15 @@
 
 <script lang="ts">
     export let actionType: string
-    export let variant: string = 'primary'
+    export let variant = 'primary'
 
     let className: string
 
     if (variant == 'danger') {
-        className = 'red'
+    	className = 'red'
     }
     else if (variant == 'primary') {
-        className = 'blue'
+    	className = 'blue'
     }
 </script>
 

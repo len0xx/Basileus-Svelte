@@ -4,8 +4,8 @@
   "version": "0.0.3",
   "esModuleInterop": true,
   "scripts": {
-    "dev": "sapper dev",
-    "build": "sapper build --legacy",
+    "dev": "npx eslint src && sapper dev",
+    "build": "npx eslint src --fix && sapper build --legacy",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build",
     "validate": "svelte-check --ignore src/node_modules/@sapper"
@@ -45,7 +45,11 @@
     "@types/jquery": "^3.5.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^14.11.1",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
     "env": "^0.0.2",
+    "eslint": "^8.9.0",
+    "eslint-plugin-svelte3": "^3.4.0",
     "rollup": "^2.3.4",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",

@@ -10,23 +10,23 @@
     const dispatch = createEventDispatcher()
 
     onMount(() => {
-        component.addEventListener('submit', (e: SubmitEvent) => {
-            e.preventDefault()
+    	component.addEventListener('submit', (e: Event) => {
+    		e.preventDefault()
 
-            const formData = new FormData(component)
+    		const formData = new FormData(component)
 
-            sendAJAXRequest(
-                action,
-                method,
-                formData,
-                null,
-                () => {
-                    dispatch('success')
-                    component.reset()
-                },
-                (res) => { dispatch('error', res) }
-            )
-        })
+    		sendAJAXRequest(
+    			action,
+    			method,
+    			formData,
+    			null,
+    			() => {
+    				dispatch('success')
+    				component.reset()
+    			},
+    			(res) => { dispatch('error', res) }
+    		)
+    	})
     })
 </script>
 

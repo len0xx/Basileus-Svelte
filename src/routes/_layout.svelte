@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
     import { authorize } from '../utilities'
-	import type { User } from '../models/user'
+import type { User } from '../models/user'
     import type { Page, Session } from '../utilities'
 
     export const preload = async (page: Page, session: Session) => await authorize(session)
