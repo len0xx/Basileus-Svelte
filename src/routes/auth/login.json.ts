@@ -32,10 +32,10 @@ export async function get(req: Request, res: Response) {
         const token = jwt.sign({
             id: user._id
         }, process.env.SECRET, {
-            expiresIn: 86400
+            expiresIn: 86400 * 30
         })
 
-        res.cookie('token', token, { maxAge: 86400, httpOnly: true })
+        res.cookie('token', token, { maxAge: 86400 * 1000 * 30, httpOnly: true })
         res.json({
             ok: true,
             accessToken: token
