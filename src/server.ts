@@ -6,7 +6,11 @@ import * as sapper from '@sapper/server'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import express from 'express'
-import type { Request } from 'express'
+import jwt from 'jsonwebtoken'
+import { UserModel, getPublicUserModel } from './models/user'
+import type { User } from './models/user'
+import type { Response, NextFunction } from 'express'
+import type { ExtendedRequest } from './utilities'
 
 const { PORT, NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
@@ -25,11 +29,32 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression({ threshold: 0 }))
 app.use(sirv('static', { dev }))
-app.use(sapper.middleware({
-	// Create user session
-	session: (req: Request) => ({
-		token: req.cookies['token']
+app.use(async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+	jwt.verify(req.cookies['token'], process.env.SECRET, async function (err: any, decode: any) {
+		let user: User | undefined = undefined
+
+		if (!err) {
+			try {
+				const userObj = await UserModel.findOne({ _id: decode.id })
+		
+				user = getPublicUserModel(userObj)
+		
+				req.user = user
+			}
+			catch(err) {
+				console.error(err)
+			}
+		}
+
+		return sapper.middleware({
+			session: () => {
+				return {
+					user: user,
+					token: req.cookies['token']
+				}
+			}
+		})(req, res, next)
 	})
-}))
+})
 
 app.listen(PORT, () => console.log('Server runs on port ' + PORT))
