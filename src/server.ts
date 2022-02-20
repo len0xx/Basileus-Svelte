@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken'
 import { UserModel, getPublicUserModel } from './models/user'
 import type { User } from './models/user'
 import type { Response, NextFunction } from 'express'
-import type { ExtendedRequest } from './utilities'
+import type { ExtendedRequest } from './types'
 
 const { PORT, NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'

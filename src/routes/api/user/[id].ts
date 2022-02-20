@@ -1,6 +1,6 @@
 import { UserModel, getPublicUserModel } from '../../../models/user'
 import type { Response } from 'express'
-import type { ExtendedRequest } from '../../../utilities'
+import type { ExtendedRequest } from '../../../types'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {

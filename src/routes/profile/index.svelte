@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-    import type { Page, Session } from '../../utilities'
     import type { User } from '../../models/user'
+    import type { Page, Session } from '../../types'
 
     export async function preload(page: Page, session: Session) {
     	const loggedIn = !!(session.user)

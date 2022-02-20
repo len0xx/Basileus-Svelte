@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount, createEventDispatcher } from 'svelte'
-    import type { RESTMethod } from '../utilities'
     import { sendAJAXRequest } from '../utilities'
+    import type { RESTMethod } from '../types'
 
     export let action = ''
     export let method: RESTMethod = 'POST'

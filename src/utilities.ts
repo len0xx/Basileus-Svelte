@@ -1,6 +1,5 @@
 import { ajax } from 'jquery'
-import type { User } from './models/user'
-import type { Request } from 'express'
+import type { RESTMethod, DefaultAJAXResponse } from './types'
 
 // Create slug from the title
 export function formatSlug(input: string): string {
@@ -38,20 +37,11 @@ export function cutPostText(text: string): string {
 	}
 }
 
-export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-
 // Create a plain JSON from FormData
 export function transformFormData(form: FormData): Record<string, unknown> {
 	const object: Record<string, unknown> = {}
 	form.forEach((value, key) => object[key] = value)
 	return object
-}
-
-export type DefaultAJAXResponse = {
-    ok: boolean,
-    response?: Record<string, unknown>,
-    message: string,
-    error?: string
 }
 
 export function sendAJAXRequest(
@@ -85,20 +75,4 @@ export function sendAJAXRequest(
 		if (callbackError) callbackError(res)
 		console.error(res)
 	})
-}
-
-export interface Page {
-    host: string,
-    path: string,
-    params?: Record<string, unknown>,
-    query?: Record<string, unknown>
-}
-
-export interface Session {
-    token?: string,
-	user?: User
-}
-
-export interface ExtendedRequest extends Request {
-	user?: User
 }

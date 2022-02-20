@@ -1,19 +1,19 @@
 import { PostModel } from '../../../models/post'
-import type { Response } from 'express'
 import { formatSlug } from '../../../utilities'
-import type { ExtendedRequest } from '../../../utilities'
 import * as ERRORS from '../../../errors'
+import type { Response } from 'express'
+import type { ExtendedRequest } from '../../../types'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {
-        if (!req.user) {
-            res.json({
-                ok: false,
-                error: 'You need to authorize first',
-                errorCode: ERRORS.UNAUTHORIZED
-            })
-            return
-        }
+		if (!req.user) {
+			res.json({
+				ok: false,
+				error: 'You need to authorize first',
+				errorCode: ERRORS.UNAUTHORIZED
+			})
+			return
+		}
 
 		const title: string = req.body.title
 		const text: string = req.body.text
@@ -22,7 +22,7 @@ export async function post(req: ExtendedRequest, res: Response) {
 		if (!text || !title) {
 			res.json({
 				ok: false,
-                error: 'Please fill in all the required fields',
+				error: 'Please fill in all the required fields',
 				errorCode: ERRORS.EMPTY_FIELDS
 			})
 			return
@@ -32,7 +32,7 @@ export async function post(req: ExtendedRequest, res: Response) {
 			title: title,
 			slug: slug,
 			text: text,
-            author: req.user.id
+			author: req.user.id
 		})
 
 		await post.save()
@@ -48,7 +48,7 @@ export async function post(req: ExtendedRequest, res: Response) {
 
 		res.json({
 			ok: false,
-            errorCode: ERRORS.UNKNOWN_ERROR,
+			errorCode: ERRORS.UNKNOWN_ERROR,
 			error: 'Unknown error occurred'
 		})
 	}

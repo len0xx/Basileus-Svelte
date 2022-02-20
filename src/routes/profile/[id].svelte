@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    import type { Page } from '../../utilities'
+    import type { Page } from '../../types'
     import type { User } from '../../models/user'
 
     export async function preload(page: Page) {

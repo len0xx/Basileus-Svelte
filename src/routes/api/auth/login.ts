@@ -1,9 +1,9 @@
 import { UserModel } from '../../../models/user'
-import type { UserObject } from '../../../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import type { Response } from 'express'
-import type { ExtendedRequest } from '../../../utilities'
+import type { ExtendedRequest } from '../../../types'
+import type { UserObject } from '../../../models/user'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {

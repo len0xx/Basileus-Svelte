@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { User } from '../../models/user'
 	import type { PostObject } from '../../models/post'
-	import type { Page, Session } from '../../utilities'
+	import type { Page, Session } from '../../types'
 
 	export async function preload(page: Page, session: Session) {
 		const postResponse = await this.fetch(`/api/post/${page.params.slug}`)
