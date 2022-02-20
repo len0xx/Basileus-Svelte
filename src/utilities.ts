@@ -1,7 +1,6 @@
 import { ajax } from 'jquery'
-import axios from 'axios'
-import { BASE_URL } from './config'
 import type { User } from './models/user'
+import type { Request } from 'express'
 
 // Create slug from the title
 export function formatSlug(input: string): string {
@@ -96,29 +95,10 @@ export interface Page {
 }
 
 export interface Session {
-    token?: string
+    token?: string,
+	user?: User
 }
 
-// Verify the token and authorize the user
-export async function authorize(session: Session): Promise<{ user: User | undefined }> {
-	const token = session.token
-
-	try {
-		const response: any = await axios.get(`${BASE_URL}/auth/verify`,
-			{
-				headers: {
-					'Authorization': token ? `Bearer ${token}` : ''
-				}
-			}
-		)
-		if (token) {
-			return {
-				user: response.data.ok ? response.data.user : undefined
-			}
-		}
-	}
-	catch (err) {
-		// Handle the error
-		// console.error('An error occurred while authorizing the user')
-	}
+export interface ExtendedRequest extends Request {
+	user?: User
 }
