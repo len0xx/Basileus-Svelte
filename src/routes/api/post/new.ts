@@ -1,8 +1,8 @@
-import { PostModel } from '../models/post'
+import { PostModel } from '../../../models/post'
 import type { Response } from 'express'
-import { formatSlug } from '../utilities'
-import type { ExtendedRequest } from '../utilities'
-import * as ERRORS from '../errors'
+import { formatSlug } from '../../../utilities'
+import type { ExtendedRequest } from '../../../utilities'
+import * as ERRORS from '../../../errors'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {
@@ -28,6 +28,7 @@ export async function post(req: ExtendedRequest, res: Response) {
         
 		res.json({
 			ok: true,
+			slug: slug,
 			message: 'Successfully created a new post'
 		})
 	}

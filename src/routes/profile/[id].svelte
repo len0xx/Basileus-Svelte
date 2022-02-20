@@ -6,11 +6,11 @@
     	const id = page.params.id
 
     	try {
-    		const profileResponse = await this.fetch(`profile/${id}.json`)
-    		const profile = await profileResponse.json()
+    		const profileResponse = await this.fetch(`/api/user/${id}`)
+    		const profileJSON = await profileResponse.json()
 
     		return {
-    			profile
+    			profile: profileJSON.user
     		}
     	}
     	catch(err) {

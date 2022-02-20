@@ -20,7 +20,11 @@
     let success = false
     let errorText = ''
 
-    const handleSuccess = () => success = true
+    const handleSuccess = (event: CustomEvent<any>) => {
+    	success = true
+    	const slug = event.detail.slug
+    	setTimeout(() => window.location.href = `/post/${slug}`, 500)
+    }
 
     const handleError = (event: CustomEvent<any>) => {
     	const error = event.detail.error
@@ -42,7 +46,7 @@
 
 <h1>New post</h1>
 
-<AjaxForm action="new.json" method="POST" on:success={handleSuccess} on:error={handleError}>
+<AjaxForm action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError}>
     { #if success }
         <p class="success">The post has been successfully created</p>
     { :else if errorText }

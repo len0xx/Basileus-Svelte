@@ -8,9 +8,7 @@
 			this.redirect(302, '/auth/login')
 		}
 
-		return {
-			user: session.user || undefined
-		}
+		return { user: session.user }
 	}
 </script>
 
@@ -25,7 +23,12 @@
 	let success = false
 	let errorText = ''
 
-	const handleSuccess = () => success = true
+	const handleSuccess = () => {
+		success = true
+		setTimeout(() => {
+			window.location.href = '/profile'
+		}, 500)
+	}
 	const handleError = (event: CustomEvent<any>) => {
 		errorText = event.detail.error
 	}
@@ -35,7 +38,7 @@
 
 <h1>Sign up</h1>
 
-<AjaxForm action="/auth/signup.json" method="POST" on:success={handleSuccess} on:error={handleError}>
+<AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError}>
 	{ #if success }
 		<p class="success">Account created</p>
 	{ :else if errorText }

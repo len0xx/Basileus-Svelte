@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
-import { PostModel } from '../../models/post'
-import type { ExtendedRequest } from '../../utilities'
+import { PostModel } from '../../../models/post'
+import type { ExtendedRequest } from '../../../utilities'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {

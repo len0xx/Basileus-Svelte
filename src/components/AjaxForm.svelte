@@ -20,8 +20,8 @@
     			method,
     			formData,
     			null,
-    			() => {
-    				dispatch('success')
+    			(res) => {
+    				dispatch('success', res)
     				component.reset()
     			},
     			(res) => { dispatch('error', res) }

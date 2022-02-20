@@ -4,7 +4,7 @@
 	import type { Page, Session } from '../../utilities'
 
 	export async function preload(page: Page, session: Session) {
-		const postResponse = await this.fetch(`post/${page.params.slug}.json`)
+		const postResponse = await this.fetch(`/api/post/${page.params.slug}`)
 		const post = await postResponse.json()
 		return {
 			post,
@@ -26,7 +26,7 @@
 		const formData = new FormData()
 
 		sendAJAXRequest(
-			`/post/${post.slug}.json`,
+			`/api/post/${post.slug}`,
 			'DELETE',
 			formData,
 			null,

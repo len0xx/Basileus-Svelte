@@ -1,7 +1,7 @@
-import { UserModel } from '../../models/user'
+import { UserModel } from '../../../models/user'
 import bcrypt from 'bcrypt'
 import type { Request, Response } from 'express'
-import type { ExtendedRequest } from '../../utilities'
+import type { ExtendedRequest } from '../../../utilities'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {

@@ -2,7 +2,7 @@
 	import type { Post } from '../models/post'
 
 	export async function preload() {
-		const postsResponse = await this.fetch('posts.json')
+		const postsResponse = await this.fetch('/api/post/list')
 		const posts = await postsResponse.json()
 		return { posts }
 	}

@@ -39,7 +39,7 @@
 
 <h1>Log in</h1>
 
-<AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess} on:error={handleError}>
+<AjaxForm action="/api/auth/login" method="GET" on:success={handleSuccess} on:error={handleError}>
 	{ #if success }
 		<p class="success">Logged in successfully</p>
 	{ :else if errorText }
