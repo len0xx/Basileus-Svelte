@@ -1,6 +1,8 @@
 import { PostModel } from '../../../models/post'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
+import { UserRole } from '../../../models/user'
+import * as ERRORS from '../../../errors'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {
@@ -21,6 +23,15 @@ export async function get(req: ExtendedRequest, res: Response) {
 
 export async function del(req: ExtendedRequest, res: Response) {
 	try {
+        if (!req.user || req.user.role != UserRole.ADMIN) {
+            res.json({
+                ok: false,
+                error: 'You have no permission to perform this action',
+                errorCode: ERRORS.NO_PERMISSION
+            })
+            return
+        }
+        
 		const slug = req.params.slug
 
 		const post = await PostModel.findOne({ slug: slug })
@@ -36,14 +47,16 @@ export async function del(req: ExtendedRequest, res: Response) {
 		else {
 			res.json({
 				ok: false,
-				error: 'Post not found'
+				error: 'Post not found',
+                errorCode: ERRORS.NOT_FOUND
 			})
 		}
 	}
 	catch (err) {
 		res.json({
 			ok: false,
-			error: 'Unexpected error'
+			error: 'Unexpected error',
+            errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

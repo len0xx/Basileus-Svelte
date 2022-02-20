@@ -3,14 +3,15 @@ import { formatSlug } from '../../../utilities'
 import * as ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
+import { UserRole } from '../../../models/user'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {
-		if (!req.user) {
+		if (!req.user || req.user.role != UserRole.ADMIN) {
 			res.json({
 				ok: false,
-				error: 'You need to authorize first',
-				errorCode: ERRORS.UNAUTHORIZED
+				error: 'You have no permission to create a post',
+				errorCode: ERRORS.NO_PERMISSION
 			})
 			return
 		}

@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import type { User } from '../../models/user'
+	import { User, UserRole } from '../../models/user'
 	import type { PostObject } from '../../models/post'
 	import type { Page, Session } from '../../types'
 
@@ -53,7 +53,7 @@
 <div class="{ active ? "content" : "content inactive" }">
 	{@html post.text.replace(/\r\n/g, '<br>')}
 </div>
-{ #if user }
+{ #if user && user.role == UserRole.ADMIN }
 	<div class="buttons">
 		{ #if active }
 			<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>

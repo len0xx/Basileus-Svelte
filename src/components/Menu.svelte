@@ -3,7 +3,9 @@
         <a href="/"><li>Home</li></a>
         <a href="/about"><li>About</li></a>
         { #if user }
-            <a href="/new"><li>New post</li></a>
+            { #if user.role == UserRole.ADMIN }
+                <a href="/new"><li>New post</li></a>
+            {/if }
             <a href="/profile"><li>Profile</li></a>
             <a href="/auth/logout"><li>Log out</li></a>
         { :else }
@@ -15,6 +17,7 @@
 
 <script lang="ts">
     import type { User } from '../models/user'
+    import { UserRole } from '../models/user'
 
     export let user: User | undefined = undefined
     export let opened: boolean
