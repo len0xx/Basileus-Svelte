@@ -1,6 +1,7 @@
 import { UserModel } from '../../../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import * as ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 import type { UserObject } from '../../../models/user'
@@ -14,7 +15,8 @@ export async function get(req: ExtendedRequest, res: Response) {
 		if (!user) {
 			res.json({
 				ok: false,
-				error: 'The user with such email doesn\'t exist'
+				error: 'The user with such email doesn\'t exist',
+                errorCode: ERRORS.NOT_FOUND
 			})
 			return
 		}
@@ -27,7 +29,8 @@ export async function get(req: ExtendedRequest, res: Response) {
 		if (!passwordIsValid) {
 			res.json({
 				ok: false,
-				error: 'Invalid password'
+				error: 'Invalid password',
+                errorCode: ERRORS.INVALID_DATA
 			})
 			return
 		}
@@ -48,7 +51,8 @@ export async function get(req: ExtendedRequest, res: Response) {
 		console.error(err)
 		res.json({
 			ok: false,
-			error: 'Unexpected error'
+			error: 'Unexpected error',
+            errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

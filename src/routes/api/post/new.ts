@@ -1,9 +1,9 @@
 import { PostModel } from '../../../models/post'
 import { formatSlug } from '../../../utilities'
 import * as ERRORS from '../../../errors'
+import { UserRole } from '../../../models/user'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
-import { UserRole } from '../../../models/user'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {

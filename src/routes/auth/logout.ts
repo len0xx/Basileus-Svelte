@@ -1,3 +1,4 @@
+import * as ERRORS from '../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../types'
 
@@ -14,7 +15,8 @@ export async function get(req: ExtendedRequest, res: Response) {
 		console.error(err)
 		res.json({
 			ok: false,
-			error: 'Unexpected error'
+			error: 'Unexpected error',
+			errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

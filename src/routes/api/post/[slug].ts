@@ -1,8 +1,8 @@
 import { PostModel } from '../../../models/post'
-import type { Response } from 'express'
-import type { ExtendedRequest } from '../../../types'
 import { UserRole } from '../../../models/user'
 import * as ERRORS from '../../../errors'
+import type { Response } from 'express'
+import type { ExtendedRequest } from '../../../types'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {

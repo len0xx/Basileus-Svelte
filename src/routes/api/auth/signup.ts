@@ -1,5 +1,6 @@
 import { UserModel } from '../../../models/user'
 import bcrypt from 'bcrypt'
+import * as ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 
@@ -16,7 +17,8 @@ export async function post(req: ExtendedRequest, res: Response) {
 			if (err) {
 				res.json({
 					ok: false,
-					error: 'Error'
+					error: 'Error',
+                    errorCode: ERRORS.UNKNOWN_ERROR
 				})
 			} else {
 				res.json({
@@ -30,7 +32,8 @@ export async function post(req: ExtendedRequest, res: Response) {
 		console.error(err)
 		res.json({
 			ok: false,
-			error: 'Unexpected error'
+			error: 'Unexpected error',
+            errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

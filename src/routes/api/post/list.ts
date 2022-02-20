@@ -1,4 +1,5 @@
 import { PostModel } from '../../../models/post'
+import * as ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 
@@ -11,7 +12,9 @@ export async function get(req: ExtendedRequest, res: Response) {
 	catch (err) {
 		console.error(err)
 		res.json({
-			message: 'Unexpected error'
+            ok: false,
+			error: 'Unexpected error',
+            errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

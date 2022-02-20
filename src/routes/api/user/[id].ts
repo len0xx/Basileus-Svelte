@@ -1,4 +1,5 @@
 import { UserModel, getPublicUserModel } from '../../../models/user'
+import * as ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 
@@ -20,7 +21,8 @@ export async function get(req: ExtendedRequest, res: Response) {
 
 		res.json({
 			ok: false,
-			message: 'Not found'
+			error: 'Not found',
+            errorCode: ERRORS.NOT_FOUND
 		})
 	}
 }
