@@ -15,7 +15,7 @@ export function formatSlug(input: string): string {
 	tokens.splice(8)
 	tokens.push(
 		date.getDate().toString(),
-		date.getMonth().toString(),
+		(date.getMonth() + 1).toString(),
 		date.getFullYear().toString()
 	)
 

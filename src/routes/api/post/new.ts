@@ -6,6 +6,15 @@ import * as ERRORS from '../../../errors'
 
 export async function post(req: ExtendedRequest, res: Response) {
 	try {
+        if (!req.user) {
+            res.json({
+                ok: false,
+                error: 'You need to authorize first',
+                errorCode: ERRORS.UNAUTHORIZED
+            })
+            return
+        }
+
 		const title: string = req.body.title
 		const text: string = req.body.text
 		const slug: string = formatSlug(title)
@@ -13,7 +22,8 @@ export async function post(req: ExtendedRequest, res: Response) {
 		if (!text || !title) {
 			res.json({
 				ok: false,
-				error: ERRORS.EMPTY_FIELDS
+                error: 'Please fill in all the required fields',
+				errorCode: ERRORS.EMPTY_FIELDS
 			})
 			return
 		}
@@ -21,7 +31,8 @@ export async function post(req: ExtendedRequest, res: Response) {
 		const post = new PostModel({
 			title: title,
 			slug: slug,
-			text: text
+			text: text,
+            author: req.user.id
 		})
 
 		await post.save()
@@ -37,7 +48,8 @@ export async function post(req: ExtendedRequest, res: Response) {
 
 		res.json({
 			ok: false,
-			message: 'Unknown error occurred'
+            errorCode: ERRORS.UNKNOWN_ERROR,
+			error: 'Unknown error occurred'
 		})
 	}
 }
