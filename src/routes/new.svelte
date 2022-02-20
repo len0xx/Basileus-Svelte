@@ -4,7 +4,7 @@
     export async function preload(page: Page, session: Session) {
     	const loggedIn = !!(session.user)
 
-    	if (!loggedIn) {
+    	if (!loggedIn || session.user.role != UserRole.ADMIN) {
     		this.redirect(302, '/auth/login')
     	}
 
@@ -16,6 +16,7 @@
     import AjaxForm from '../components/AjaxForm.svelte'
     import Button from '../components/Button.svelte'
     import * as ERRORS from '../errors'
+    import { UserRole } from '../models/user'
 
     let success = false
     let errorText = ''

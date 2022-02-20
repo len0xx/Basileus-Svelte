@@ -23,14 +23,14 @@ export async function get(req: ExtendedRequest, res: Response) {
 
 export async function del(req: ExtendedRequest, res: Response) {
 	try {
-        if (!req.user || req.user.role != UserRole.ADMIN) {
-            res.json({
-                ok: false,
-                error: 'You have no permission to perform this action',
-                errorCode: ERRORS.NO_PERMISSION
-            })
-            return
-        }
+		if (!req.user || req.user.role != UserRole.ADMIN) {
+			res.json({
+				ok: false,
+				error: 'You have no permission to perform this action',
+				errorCode: ERRORS.NO_PERMISSION
+			})
+			return
+		}
         
 		const slug = req.params.slug
 
@@ -48,7 +48,7 @@ export async function del(req: ExtendedRequest, res: Response) {
 			res.json({
 				ok: false,
 				error: 'Post not found',
-                errorCode: ERRORS.NOT_FOUND
+				errorCode: ERRORS.NOT_FOUND
 			})
 		}
 	}
@@ -56,7 +56,7 @@ export async function del(req: ExtendedRequest, res: Response) {
 		res.json({
 			ok: false,
 			error: 'Unexpected error',
-            errorCode: ERRORS.UNKNOWN_ERROR
+			errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }
