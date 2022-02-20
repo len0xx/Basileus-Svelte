@@ -64,7 +64,7 @@ export interface User {
 // Convert UserObject to User
 export function getPublicUserModel(user: UserObject): User {
 	return {
-		id: user._id,
+		id: user._id.toString(),
 		firstname: user.firstname,
 		lastname: user.lastname,
 		email: user.email,
