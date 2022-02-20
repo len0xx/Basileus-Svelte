@@ -1,9 +1,5 @@
 <script context="module" lang="ts">
-	type Post = {
-		slug: string,
-		title: string,
-		text: string
-	}
+	import type { Post } from '../models/post'
 
 	export async function preload() {
 		const postsResponse = await this.fetch('posts.json')
