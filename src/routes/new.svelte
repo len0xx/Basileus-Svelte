@@ -1,3 +1,17 @@
+<script context="module" lang="ts">
+    import type { Page, Session } from '../utilities'
+
+    export async function preload(page: Page, session: Session) {
+    	const loggedIn = !!(session.user)
+
+    	if (!loggedIn) {
+    		this.redirect(302, '/auth/login')
+    	}
+
+    	return { user: session.user }
+    }
+</script>
+
 <script lang="ts">
     import AjaxForm from '../components/AjaxForm.svelte'
     import Button from '../components/Button.svelte'
