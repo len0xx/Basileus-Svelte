@@ -36,9 +36,9 @@ app.use(async (req: ExtendedRequest, res: Response, next: NextFunction) => {
 		if (!err) {
 			try {
 				const userObj = await UserModel.findOne({ _id: decode.id })
-		
+
 				user = getPublicUserModel(userObj)
-		
+
 				req.user = user
 			}
 			catch(err) {
