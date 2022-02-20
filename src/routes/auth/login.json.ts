@@ -2,9 +2,10 @@ import { UserModel } from '../../models/user'
 import type { UserObject } from '../../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
+import type { ExtendedRequest } from '../../utilities'
 
-export async function get(req: Request, res: Response) {
+export async function get(req: ExtendedRequest, res: Response) {
 	try {
 		const user: UserObject | undefined = await UserModel.findOne({
 			email: req.query.email

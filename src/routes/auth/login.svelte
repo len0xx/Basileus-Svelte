@@ -1,14 +1,17 @@
 <script context="module" lang="ts">
-    import { authorize } from '../../utilities'
-    import type { Page, Session } from '../../utilities'
+	import type { Page, Session } from '../../utilities'
 
-    export async function preload(page: Page, session: Session) {
-    	const authorization = await authorize(session)
+	export async function preload(page: Page, session: Session) {
+		const loggedIn = !!(session.user)
 
-    	const loggedIn = !!(authorization && authorization.user)
+		if (loggedIn) {
+			this.redirect(302, '/profile')
+		}
 
-    	if (loggedIn) this.redirect(302, '/profile')
-    }
+		return {
+			user: session.user || undefined
+		}
+	}
 </script>
 
 <svelte:head>
@@ -16,36 +19,36 @@
 </svelte:head>
 
 <script lang="ts">
-    import AjaxForm from '../../components/AjaxForm.svelte'
-    import Button from '../../components/Button.svelte'
+	import AjaxForm from '../../components/AjaxForm.svelte'
+	import Button from '../../components/Button.svelte'
 
-    let success = false
-    let errorText = ''
+	let success = false
+	let errorText = ''
 
-    const handleSuccess = () => {
-    	success = true
-    	setTimeout(() => {
-    		window.location.href = '/profile'
-    	}, 500)
-    }
+	const handleSuccess = () => {
+		success = true
+		setTimeout(() => {
+			window.location.href = '/profile'
+		}, 500)
+	}
 
-    const handleError = (event: CustomEvent<any>) => {
-    	errorText = event.detail.error
-    }
+	const handleError = (event: CustomEvent<any>) => {
+		errorText = event.detail.error
+	}
 </script>
 
 <h1>Log in</h1>
 
 <AjaxForm action="/auth/login.json" method="GET" on:success={handleSuccess} on:error={handleError}>
-    { #if success }
-        <p class="success">Logged in successfully</p>
-    { :else if errorText }
-        <p class="error">{ errorText }</p>
-    {/if }
-    <label for="email">Email:</label><br>
-    <input type="email" name="email" required><br>
-    <label for="password">Password:</label><br>
-    <input type="password" name="password" required><br>
-    
-    <Button actionType="submit" variant="primary">Log in</Button>
+	{ #if success }
+		<p class="success">Logged in successfully</p>
+	{ :else if errorText }
+		<p class="error">{ errorText }</p>
+	{/if }
+	<label for="email">Email:</label><br>
+	<input type="email" name="email" required><br>
+	<label for="password">Password:</label><br>
+	<input type="password" name="password" required><br>
+	
+	<Button actionType="submit" variant="primary">Log in</Button>
 </AjaxForm>

@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express'
+import type { ExtendedRequest } from '../../utilities'
 
-export async function get(req: Request, res: Response) {
+export async function get(req: ExtendedRequest, res: Response) {
 	try {
 		const token = req.cookies['token']
 

@@ -1,8 +1,9 @@
 import { UserModel } from '../../models/user'
 import bcrypt from 'bcrypt'
 import type { Request, Response } from 'express'
+import type { ExtendedRequest } from '../../utilities'
 
-export async function post(req: Request, res: Response) {
+export async function post(req: ExtendedRequest, res: Response) {
 	try {
 		const user = new UserModel({
 			firstname: req.body.firstname,
@@ -10,7 +11,7 @@ export async function post(req: Request, res: Response) {
 			email: req.body.email,
 			password: bcrypt.hashSync(req.body.password, 8)
 		})
-        
+		
 		user.save((err: any) => {
 			if (err) {
 				res.json({
