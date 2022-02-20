@@ -15,4 +15,19 @@ const postSchema = new mongoose.Schema({
 	}
 })
 
-export default mongoose.model('Post', postSchema)
+export const PostModel = mongoose.model('Post', postSchema)
+
+// Backend model
+export interface PostObject {
+    _id: string,
+    slug: string,
+    title: string,
+    text: string
+}
+
+// Frontend model
+export interface Post {
+    slug: string,
+    title: string,
+    text: string
+}
