@@ -1,22 +1,25 @@
 <script context="module" lang="ts">
-	type PostObject = {
-		_id: string,
-		slug: string,
-		title: string,
-		text: string
-	}
+	import type { User } from '../../models/user'
+	import type { PostObject } from '../../models/post'
+	import type { Page, Session } from '../../utilities'
 
-	export async function preload({ params: { slug } }) {
-		const postResponse = await this.fetch(`post/${slug}.json`)
+	export async function preload(page: Page, session: Session) {
+		const postResponse = await this.fetch(`post/${page.params.slug}.json`)
 		const post = await postResponse.json()
-		return { post }
+		return {
+			post,
+			user: session.user
+		}
 	}
 </script>
 
 <script lang="ts">
 	import Button from '../../components/Button.svelte'
 	import { sendAJAXRequest } from '../../utilities'
+
 	export let post: PostObject
+	export let user: User | undefined = undefined
+
 	let active = true
 
 	function deletePost() {
@@ -50,10 +53,12 @@
 <div class="{ active ? "content" : "content inactive" }">
 	{@html post.text.replace(/\r\n/g, '<br>')}
 </div>
-<div class="buttons">
-	{ #if active }
-		<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>
-	{ :else }
-		<p class="error">The post has been deleted</p>
-	{/if }
-</div>
+{ #if user }
+	<div class="buttons">
+		{ #if active }
+			<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>
+		{ :else }
+			<p class="error">The post has been deleted</p>
+		{/if }
+	</div>
+{/if }

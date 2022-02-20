@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express'
-import Post from '../../models/post'
+import { PostModel } from '../../models/post'
+import type { ExtendedRequest } from '../../utilities'
 
-export async function get(req: Request, res: Response) {
+export async function get(req: ExtendedRequest, res: Response) {
 	try {
 		const slug = req.params.slug
 
-		const post = await Post.findOne({ slug: slug })
+		const post = await PostModel.findOne({ slug: slug })
     
 		res.json(post)
 	}
@@ -18,14 +19,14 @@ export async function get(req: Request, res: Response) {
 	}
 }
 
-export async function del(req: Request, res: Response) {
+export async function del(req: ExtendedRequest, res: Response) {
 	try {
 		const slug = req.params.slug
 
-		const post = await Post.findOne({ slug: slug })
+		const post = await PostModel.findOne({ slug: slug })
         
 		if (post) {
-			await Post.deleteOne({ slug: slug })
+			await PostModel.deleteOne({ slug: slug })
 
 			res.json({
 				ok: true,
