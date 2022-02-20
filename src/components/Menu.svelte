@@ -2,8 +2,8 @@
     <ul>
         <a href="/"><li>Home</li></a>
         <a href="/about"><li>About</li></a>
-        <a href="/new"><li>New post</li></a>
         { #if user }
+            <a href="/new"><li>New post</li></a>
             <a href="/profile"><li>Profile</li></a>
             <a href="/auth/logout"><li>Log out</li></a>
         { :else }
