@@ -1,0 +1,41 @@
+<script context="module" lang="ts">
+    import type { Page } from '../../utilities'
+    import type { User } from '../../models/user'
+
+    export async function preload(page: Page) {
+    	const id = page.params.id
+
+    	try {
+    		const profileResponse = await this.fetch(`profile/${id}.json`)
+    		const profile = await profileResponse.json()
+
+    		return {
+    			profile
+    		}
+    	}
+    	catch(err) {
+    		console.error(err)
+
+    		return {
+    			profile: undefined
+    		}
+    	}
+    }
+</script>
+
+<script lang="ts">
+    export let profile: User | undefined = undefined
+</script>
+
+<svelte:head>
+	<title>Basileus – Profile</title>
+</svelte:head>
+
+<style lang="sass"></style>
+
+{ #if profile }
+    <h1>{ [profile.firstname, profile.lastname].join(' ') }</h1>
+    <p>Email: {profile.email}</p>
+{ :else }
+    <h1>User not found</h1>
+{/if }
