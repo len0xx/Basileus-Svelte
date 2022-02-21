@@ -44,5 +44,5 @@
 		{/each}
 	</div>
 { :else }
-	<div class="not-found">No posts found. <a href="/new">Create your first post</a></div>
+	<div class="not-found">No posts found. <a href="/post/new">Create your first post</a></div>
 {/if}

@@ -34,7 +34,7 @@
 		padding: 2em
 	
 	section.content
-		max-width: 600px
+		max-width: 768px
 		margin: 0 auto
 </style>
 

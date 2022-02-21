@@ -38,7 +38,7 @@
 
 <style lang="sass">
 	.buttons
-		margin-top: 1em
+		margin-top: 2em
 
 	.inactive
 		opacity: 0.5
@@ -48,17 +48,19 @@
 	<title>{post.title}</title>
 </svelte:head>
 
-<h1 class="{ active ? '' : 'inactive' }">{post.title}</h1>
-
-<div class="{ active ? "content" : "content inactive" }">
-	{@html post.text.replace(/\r\n/g, '<br>')}
-</div>
-{ #if user && user.role == UserRole.ADMIN }
-	<div class="buttons">
-		{ #if active }
-			<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>
-		{ :else }
-			<p class="error">The post has been deleted</p>
-		{/if }
+<section class="container">
+	<h1 class="{ active ? '' : 'inactive' }">{post.title}</h1>
+	
+	<div class="{ active ? "content" : "content inactive" }">
+		{@html post.text.replace(/\r\n/g, '<br>')}
 	</div>
-{/if }
+	{ #if user && user.role == UserRole.ADMIN }
+		<div class="buttons">
+			{ #if active }
+				<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>
+			{ :else }
+				<p class="error">The post has been deleted</p>
+			{/if }
+		</div>
+	{/if }
+</section>

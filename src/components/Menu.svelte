@@ -4,7 +4,7 @@
         <a href="/about"><li>About</li></a>
         { #if user }
             { #if user.role == UserRole.ADMIN }
-                <a href="/new"><li>New post</li></a>
+                <a href="/post/new"><li>New post</li></a>
             {/if }
             <a href="/profile"><li>Profile</li></a>
             <a href="/auth/logout"><li>Log out</li></a>
