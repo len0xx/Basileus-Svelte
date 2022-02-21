@@ -7,8 +7,7 @@ export async function get(req: ExtendedRequest, res: Response) {
 	try {
 		const author = req.query.author && req.query.author.toString()
 
-		let query: { author?: string }
-		query = {}
+		const query: { author?: string } = {}
 		if (author) query.author = author
 
 		const posts = await PostModel.find(query)
