@@ -34,8 +34,6 @@
 	}
 </script>
 
-<style lang="sass"></style>
-
 <h1>Sign up</h1>
 
 <AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError}>

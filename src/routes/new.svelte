@@ -43,8 +43,6 @@
 	<title>Create a new post</title>
 </svelte:head>
 
-<style lang="sass"></style>
-
 <h1>New post</h1>
 
 <AjaxForm action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError}>
