@@ -22,7 +22,7 @@ export async function get(req: ExtendedRequest, res: Response) {
 		res.json({
 			ok: false,
 			error: 'Not found',
-            errorCode: ERRORS.NOT_FOUND
+			errorCode: ERRORS.NOT_FOUND
 		})
 	}
 }

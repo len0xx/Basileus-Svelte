@@ -18,7 +18,7 @@ export async function post(req: ExtendedRequest, res: Response) {
 				res.json({
 					ok: false,
 					error: 'Error',
-                    errorCode: ERRORS.UNKNOWN_ERROR
+					errorCode: ERRORS.UNKNOWN_ERROR
 				})
 			} else {
 				res.json({
@@ -33,7 +33,7 @@ export async function post(req: ExtendedRequest, res: Response) {
 		res.json({
 			ok: false,
 			error: 'Unexpected error',
-            errorCode: ERRORS.UNKNOWN_ERROR
+			errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }

@@ -12,9 +12,9 @@ export async function get(req: ExtendedRequest, res: Response) {
 	catch (err) {
 		console.error(err)
 		res.json({
-            ok: false,
+			ok: false,
 			error: 'Unexpected error',
-            errorCode: ERRORS.UNKNOWN_ERROR
+			errorCode: ERRORS.UNKNOWN_ERROR
 		})
 	}
 }
