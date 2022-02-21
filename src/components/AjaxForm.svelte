@@ -6,7 +6,7 @@
     export let action = ''
     export let className = ''
     export let method: RESTMethod = 'POST'
-export let noReset = false
+	export let noReset = false
 
     let component: HTMLFormElement
     const dispatch = createEventDispatcher()
