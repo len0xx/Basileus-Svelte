@@ -31,12 +31,16 @@ export interface PostObject {
     _id: string,
     slug: string,
     title: string,
-    text: string
+    text: string,
+	author: string,
+	created: Date
 }
 
 // Frontend model
 export interface Post {
     slug: string,
     title: string,
-    text: string
+    text: string,
+	author: string,
+	created: Date
 }
