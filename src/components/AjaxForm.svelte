@@ -5,6 +5,7 @@
 
     export let action = ''
     export let method: RESTMethod = 'POST'
+	export let noReset = false
 
     let component: HTMLFormElement
     const dispatch = createEventDispatcher()
@@ -21,8 +22,13 @@
     			formData,
     			null,
     			(res) => {
-    				dispatch('success', res)
-    				component.reset()
+					if (res.ok === true) {
+    					dispatch('success', res)
+					}
+					else if (res.ok === false) {
+						dispatch('error', res)
+					}
+    				if (!noReset) component.reset()
     			},
     			(res) => { dispatch('error', res) }
     		)
