@@ -17,6 +17,7 @@
     import Button from '../components/Button.svelte'
     import * as ERRORS from '../errors'
     import { UserRole } from '../models/user'
+    import { redirect } from '../utilities'
 
     let success = false
     let errorText = ''
@@ -24,7 +25,7 @@
     const handleSuccess = (event: CustomEvent<any>) => {
     	success = true
     	const slug = event.detail.slug
-    	setTimeout(() => window.location.href = `/post/${slug}`, 500)
+        redirect(`/post/${slug}`)
     }
 
     const handleError = (event: CustomEvent<any>) => {

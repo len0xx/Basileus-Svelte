@@ -19,15 +19,14 @@
 <script lang="ts">
 	import AjaxForm from '../../components/AjaxForm.svelte'
 	import Button from '../../components/Button.svelte'
+	import { redirect } from '../../utilities'
 
 	let success = false
 	let errorText = ''
 
 	const handleSuccess = () => {
 		success = true
-		setTimeout(() => {
-			window.location.href = '/profile'
-		}, 500)
+		redirect('/profile')
 	}
 	const handleError = (event: CustomEvent<any>) => {
 		errorText = event.detail.error

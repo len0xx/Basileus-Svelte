@@ -76,3 +76,5 @@ export function sendAJAXRequest(
 		console.error(res)
 	})
 }
+
+export const redirect = (location: string) => setTimeout(() => { window.location.href = location }, 500)
