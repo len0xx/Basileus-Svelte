@@ -10,7 +10,6 @@
 
 <script lang="ts">
 	import PostCard from '../components/PostCard.svelte'
-	import { cutPostText } from '../utilities'
 
 	export let posts: Post[]
 </script>
@@ -38,9 +37,7 @@
 { #if (posts.length) }
 	<div class="posts-wrapper">
 		{ #each posts as post }
-			<PostCard slug={ post.slug } title={ post.title }>
-				{ cutPostText(post.text) }
-			</PostCard>
+			<PostCard post={post} />
 		{/each}
 	</div>
 { :else }

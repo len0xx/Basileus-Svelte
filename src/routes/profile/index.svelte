@@ -1,34 +1,51 @@
 <script context="module" lang="ts">
 	import AjaxForm from '../../components/AjaxForm.svelte'
 	import Button from '../../components/Button.svelte'
-import type { User } from '../../models/user'
-import type { Page, Session } from '../../types'
+	import PostCard from '../../components/PostCard.svelte'
+	import type { Post } from '../../models/post'
+	import type { User } from '../../models/user'
+	import type { Page, Session } from '../../types'
 
-export async function preload(page: Page, session: Session) {
+	export async function preload(page: Page, session: Session) {
 		const loggedIn = !!(session.user)
 
 		if (!loggedIn) {
 			this.redirect(302, '/auth/login')
 		}
 
-		return { user: session.user }
-}
+		const postsResponse = await this.fetch(`/api/post/list?author=${session.user.id}`)
+		const posts = await postsResponse.json()
+
+		return {
+			posts,
+			user: session.user
+		}
+	}
 </script>
 
 <script lang="ts">
+	export let posts: Post[]
 	export let user: User | undefined = undefined
 
-let success = false
-let errorText = ''
+	let success = false
+	let errorText = ''
 
-function handleSuccess() { success = true }
+	function handleSuccess() { success = true }
 
-function handleError(event: CustomEvent<any>) { errorText = event.detail.error }
+	function handleError(event: CustomEvent<any>) { errorText = event.detail.error }
 </script>
 
 <svelte:head>
 	<title>Basileus – Profile</title>
 </svelte:head>
+
+<style lang="sass">
+	.posts-wrapper
+		display: grid
+		position: relative
+		grid-template-columns: 1fr
+		gap: 1.5em
+</style>
 
 <section class="container">
 	<h1>Welcome, { user ? user.firstname : 'unknown' }</h1>
@@ -62,3 +79,12 @@ function handleError(event: CustomEvent<any>) { errorText = event.detail.error }
 		<Button actionType="submit">Save</Button>
 	</AjaxForm>
 </section>
+<br>
+{ #if posts.length }
+	<h1>Your posts:</h1>
+	<div class="posts-wrapper">
+		{ #each posts as post }
+			<PostCard post={post} />
+		{/each }
+	</div>
+{/if }

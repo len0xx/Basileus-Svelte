@@ -1,11 +1,13 @@
 <article>
-    <a href="/post/{slug}"><h1>{ title }</h1></a>
-    <slot></slot>
+    <a href="/post/{post.slug}"><h1>{ post.title }</h1></a>
+    <p>{ cutPostText(post.text) }</p>
 </article>
 
 <script lang="ts">
-    export let title: string
-    export let slug: string
+	import { cutPostText } from '../utilities'
+	import type { Post } from '../models/post'
+
+    export let post: Post
 </script>
 
 <style lang="sass">
