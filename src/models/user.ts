@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	age: {
+		type: Number,
+		min: 1,
+		max: 110
 	}
 })
 
@@ -49,16 +54,18 @@ export interface UserObject {
     email: string,
     role: UserRole,
     password: string,
-    created: Date
+    created: Date,
+	age: number
 }
 
 // Frontend model
 export interface User {
     id: string,
     firstname: string,
-    lastname: string,
+    lastname?: string,
     email: string,
-    role: UserRole
+    role: UserRole,
+	age: number
 }
 
 // Convert UserObject to User
@@ -68,6 +75,7 @@ export function getPublicUserModel(user: UserObject): User {
 		firstname: user.firstname,
 		lastname: user.lastname,
 		email: user.email,
-		role: user.role
+		role: user.role,
+		age: user.age
 	}
 }
