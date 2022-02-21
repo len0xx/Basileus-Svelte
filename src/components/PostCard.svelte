@@ -12,7 +12,7 @@
     article
         background-color: #fff
         border-radius: 10px
-        padding: 1em
+        padding: 2em 2.6em
         color: #000
         box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1)
         transition: 0.05s linear
