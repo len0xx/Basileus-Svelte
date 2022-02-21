@@ -4,12 +4,8 @@ import type { ExtendedRequest } from '../../types'
 
 export async function get(req: ExtendedRequest, res: Response) {
 	try {
-		const token = req.cookies['token']
-
-		if (token) {
-			res.clearCookie('token')
-			res.redirect('/')
-		}
+		res.clearCookie('token')
+		res.redirect('/')
 	}
 	catch(err) {
 		console.error(err)
