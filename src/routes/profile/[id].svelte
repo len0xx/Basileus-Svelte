@@ -31,11 +31,11 @@
 	<title>Basileus – Profile</title>
 </svelte:head>
 
-<style lang="sass"></style>
-
-{ #if profile }
-    <h1>{ [profile.firstname, profile.lastname].join(' ') }</h1>
-    <p>Email: {profile.email}</p>
-{ :else }
-    <h1>User not found</h1>
-{/if }
+<section class="container">
+	{ #if profile }
+		<h1>{ [profile.firstname, profile.lastname].join(' ') }</h1>
+		<p>Email: {profile.email}</p>
+	{ :else }
+		<h1>User not found</h1>
+	{/if }
+</section>

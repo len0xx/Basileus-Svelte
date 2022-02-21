@@ -26,10 +26,12 @@
 	<title>Error {status}</title>
 </svelte:head>
 
-<h1>Error {status}</h1>
-
-<p>{error.message}</p>
-
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
-{/if}
+<section class="container">
+	<h1>Error {status}</h1>
+	
+	<p>{error.message}</p>
+	
+	{#if dev && error.stack}
+		<pre>{error.stack}</pre>
+	{/if}
+</section>
