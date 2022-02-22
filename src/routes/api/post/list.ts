@@ -18,7 +18,7 @@ export async function get(req: ExtendedRequest, res: Response) {
 		if (author) query.author = author
 		if (search) query.title = new RegExp(search, 'i')
 
-		const posts = await PostModel.find(query).skip(offset).limit(perPage)
+		const posts = await PostModel.find(query).skip(offset).limit(perPage).sort({ created: -1 })
 		const postsAmount = await PostModel.count(query)
 		const pages = Math.ceil(postsAmount / perPage)
     

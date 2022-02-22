@@ -78,7 +78,9 @@
 			<PostCard post={post} />
 		{/each}
 	</div>
-	<Paginator active={page} {pages} link="/" {queryParams} />
+	{ #if (pages > 1) }
+		<Paginator active={page} {pages} link="/" {queryParams} />
+	{ /if }
 { :else if searchQuery }
 	<div class="not-found">No posts found</div>
 { :else }

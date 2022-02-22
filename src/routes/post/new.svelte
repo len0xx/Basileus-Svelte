@@ -15,7 +15,6 @@
 <script lang="ts">
     import AjaxForm from '../../components/AjaxForm.svelte'
     import Button from '../../components/Button.svelte'
-    import ERRORS from '../../errors'
     import { UserRole } from '../../models/user'
     import { redirect } from '../../utilities'
 

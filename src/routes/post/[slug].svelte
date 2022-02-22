@@ -52,7 +52,7 @@
 	<h1 class="{ active ? '' : 'inactive' }">{post.title}</h1>
 	
 	<div class="{ active ? "content" : "content inactive" }">
-		{@html post.text.replace(/\r\n/g, '<br>')}
+		{@html post.text.replace(/\r/g, '').replace(/\n/g, '<br>')}
 	</div>
 	{ #if user && user.role == UserRole.ADMIN }
 		<div class="buttons">

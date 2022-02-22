@@ -82,7 +82,7 @@
 </section>
 <br>
 { #if posts.length }
-	<h1>Your posts:</h1>
+	<h1>Your recent posts:</h1>
 	<div class="posts-wrapper">
 		{ #each posts as post }
 			<PostCard post={post} />
