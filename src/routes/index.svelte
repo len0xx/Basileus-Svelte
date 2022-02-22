@@ -1,32 +1,41 @@
 <script context="module" lang="ts">
 	import type { Post } from '../models/post'
+	import type { Page } from '../types'
 
-	export async function preload() {
-		const postsResponse = await this.fetch('/api/post/list')
+	export async function preload(page: Page) {
+		const pageNum = page.query.page ? +page.query.page : 1
+
+		const postsResponse = await this.fetch(`/api/post/list?page=${pageNum}`)
 		const postsObject = await postsResponse.json()
 		return {
 			posts: postsObject.posts,
-			pages: postsObject.pages
+			pages: postsObject.pages,
+			page: pageNum
 		}
 	}
 </script>
 
 <script lang="ts">
 	import PostCard from '../components/PostCard.svelte'
+	import Paginator from '../components/Paginator.svelte'
 	import { sendAJAXRequest } from '../utilities'
 
 	export let posts: Post[]
 	export let pages = 1
+	export let page = 1
 	let searchQuery = ''
+	$: queryParams = {
+		s: searchQuery
+	}
 
 	const updateSearchResults = () => {
 		sendAJAXRequest(
-			`/api/post/list`,
+			'/api/post/list',
 			'GET',
 			{ s: searchQuery },
 			null,
 			(res) => {
-				posts = res.posts,
+				posts = res.posts
 				pages = res.pages
 			}
 		)
@@ -69,6 +78,7 @@
 			<PostCard post={post} />
 		{/each}
 	</div>
+	<Paginator active={page} {pages} link="/" {queryParams} />
 { :else if searchQuery }
 	<div class="not-found">No posts found</div>
 { :else }

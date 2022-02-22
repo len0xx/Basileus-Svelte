@@ -7,7 +7,7 @@
 	import { cutPostText } from '../utilities'
 	import type { Post } from '../models/post'
 
-export let post: Post
+    export let post: Post
 </script>
 
 <style lang="sass">
