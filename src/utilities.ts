@@ -47,27 +47,39 @@ export function transformFormData(form: FormData): Record<string, unknown> {
 export function sendAJAXRequest(
 	url: string,
 	method: RESTMethod,
-	data?: FormData | null,
+	data?: FormData | Record<string, string> | null,
 	headers?: JQuery.PlainObject<string> | null,
 	callbackSuccess?: (res: DefaultAJAXResponse) => void,
 	callbackError?: (res: string) => void
 ): void {
+	let finalData: Record<string, unknown> = {}
+
+	if (data instanceof FormData) {
+		finalData = transformFormData(data)
+	}
+	else if (data) {
+		finalData = data
+	}
+
 	const request = ajax({
 		url: url,
 		contentType: 'application/x-www-form-urlencoded',
 		headers: headers || {},
 		type: method,
-		data: data ? transformFormData(data) : {},
+		data: data,
 		dataType: 'json'
 	})
 
 	request.done((res) => {
-		if (res.ok) {
+		if (res.ok === true) {
 			if (callbackSuccess) callbackSuccess(res)
 		}
-		else {
+		else if (res.ok === false) {
 			if (callbackError) callbackError(res)
 			console.error(res)
+		}
+		else {
+			if (callbackSuccess) callbackSuccess(res)
 		}
 	})
 

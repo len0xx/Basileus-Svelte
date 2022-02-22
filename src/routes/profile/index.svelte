@@ -14,10 +14,11 @@
 		}
 
 		const postsResponse = await this.fetch(`/api/post/list?author=${session.user.id}`)
-		const posts = await postsResponse.json()
+		const postsObj = await postsResponse.json()
 
 		return {
-			posts,
+			posts: postsObj.posts,
+			pages: postsObj.pages,
 			user: session.user
 		}
 	}

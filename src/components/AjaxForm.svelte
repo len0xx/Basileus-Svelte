@@ -5,8 +5,9 @@
 
     export let action = ''
     export let className = ''
+export let noReset = false
+export let checkOk = true
     export let method: RESTMethod = 'POST'
-	export let noReset = false
 
     let component: HTMLFormElement
     const dispatch = createEventDispatcher()
@@ -23,11 +24,16 @@
     			formData,
     			null,
     			(res) => {
-				if (res.ok === true) {
-    					dispatch('success', res)
+				if (checkOk) {
+					if (res.ok === true) {
+						dispatch('success', res)
+					}
+					else if (res.ok === false) {
+						dispatch('error', res)
+					}
 				}
-				else if (res.ok === false) {
-					dispatch('error', res)
+				else {
+					dispatch('success', res)
 				}
     				if (!noReset) component.reset()
     			},
