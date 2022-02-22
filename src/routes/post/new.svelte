@@ -15,7 +15,7 @@
 <script lang="ts">
     import AjaxForm from '../../components/AjaxForm.svelte'
     import Button from '../../components/Button.svelte'
-    import * as ERRORS from '../../errors'
+    import ERRORS from '../../errors'
     import { UserRole } from '../../models/user'
     import { redirect } from '../../utilities'
 
@@ -29,14 +29,7 @@
     }
 
     const handleError = (event: CustomEvent<any>) => {
-    	const error = event.detail.error
-
-    	if (error == ERRORS.EMPTY_FIELDS) {
-    		errorText = 'Error: Required fields are empty'
-    	}
-    	else {
-    		errorText = 'Unexpected error occurred. Please try again later'
-    	}
+    	errorText = event.detail.error
     }
 </script>
 

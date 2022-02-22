@@ -1,6 +1,8 @@
-export const UNKNOWN_ERROR = 1
-export const EMPTY_FIELDS = 2
-export const UNAUTHORIZED = 3
-export const NO_PERMISSION = 4
-export const NOT_FOUND = 5
-export const INVALID_DATA = 6
+export default {
+	UNKNOWN_ERROR: 1,
+	EMPTY_FIELDS: 2,
+	UNAUTHORIZED: 3,
+	NO_PERMISSION: 4,
+	NOT_FOUND: 5,
+	INVALID_DATA: 6
+}

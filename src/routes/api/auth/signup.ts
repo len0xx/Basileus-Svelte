@@ -1,6 +1,6 @@
 import { UserModel } from '../../../models/user'
 import bcrypt from 'bcrypt'
-import * as ERRORS from '../../../errors'
+import ERRORS from '../../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 

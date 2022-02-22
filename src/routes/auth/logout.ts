@@ -1,4 +1,4 @@
-import * as ERRORS from '../../errors'
+import ERRORS from '../../errors'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../types'
 
