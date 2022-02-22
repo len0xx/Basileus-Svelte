@@ -66,7 +66,7 @@ export function sendAJAXRequest(
 		contentType: 'application/x-www-form-urlencoded',
 		headers: headers || {},
 		type: method,
-		data: data,
+		data: finalData,
 		dataType: 'json'
 	})
 
