@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import express from 'express'
-import authorize from './middleware'
+import authorize from './authMiddleware'
 
 const { PORT, NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
