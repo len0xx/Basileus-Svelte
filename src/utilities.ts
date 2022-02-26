@@ -89,4 +89,5 @@ export function sendAJAXRequest(
 	})
 }
 
-export const redirect = (location: string) => setTimeout(() => { window.location.href = location }, 500)
+const redirectDelay = 500
+export const redirect = (location: string) => setTimeout(() => { window.location.href = location }, redirectDelay)

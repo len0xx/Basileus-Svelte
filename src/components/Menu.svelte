@@ -16,8 +16,8 @@
 </aside>
 
 <script lang="ts">
-    import type { User } from '../models/user'
     import { UserRole } from '../models/user'
+    import type { User } from '../models/user'
 
     export let user: User | undefined = undefined
     export let opened: boolean

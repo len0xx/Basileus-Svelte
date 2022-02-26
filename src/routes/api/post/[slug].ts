@@ -16,7 +16,9 @@ export async function get(req: ExtendedRequest, res: Response) {
 		console.error(err)
 
 		res.json({
-			message: 'Not found'
+			ok: false,
+			error: 'Not found',
+			errorCode: ERRORS.NOT_FOUND
 		})
 	}
 }

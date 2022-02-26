@@ -24,15 +24,6 @@
 		return ret.join('&')
 	}
 
-	$: queryString = encodeQuery(queryParams)
-	$: if (queryString.length) {
-		queryString += '&page={}'
-	}
-	$: if (!queryString.length) {
-		queryString += 'page={}'
-	}
-	$: finalLink = link + '?' + queryString
-
 	const applyPageNumber = (link: string, num: number): string => link.replace('page={}', `page=${num}`)
 
 	function getPages(max: number): number[] {
@@ -42,6 +33,15 @@
 		}
 		return numbers
 	}
+
+	$: queryString = encodeQuery(queryParams)
+	$: if (queryString.length) {
+		queryString += '&page={}'
+	}
+	$: if (!queryString.length) {
+		queryString += 'page={}'
+	}
+	$: finalLink = link + '?' + queryString
 
 	$: pageNumbers = getPages(pages)
 </script>

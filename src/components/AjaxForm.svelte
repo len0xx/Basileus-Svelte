@@ -5,8 +5,8 @@
 
     export let action = ''
     export let className = ''
-export let noReset = false
-export let checkOk = true
+	export let noReset = false
+	export let checkOk = true
     export let method: RESTMethod = 'POST'
 
     let component: HTMLFormElement

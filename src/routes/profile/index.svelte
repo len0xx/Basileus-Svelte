@@ -81,11 +81,13 @@
 	</AjaxForm>
 </section>
 <br>
+<h1>Your recent posts:</h1>
 { #if posts.length }
-	<h1>Your recent posts:</h1>
 	<div class="posts-wrapper">
 		{ #each posts as post }
 			<PostCard post={post} />
 		{/each }
 	</div>
+{ :else }
+	<p>No posts here yet</p>
 {/if }
