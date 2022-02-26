@@ -18,7 +18,6 @@
 
 		return {
 			posts: postsObj.posts,
-			pages: postsObj.pages,
 			user: session.user
 		}
 	}
@@ -57,7 +56,7 @@
 	{ :else if errorText }
 		<p class="error">{ errorText }</p>
 	{ /if }
-	<AjaxForm method="PUT"  action="/api/user/{user.id}" noReset={true} on:success={handleSuccess} on:error={handleError}>
+	<AjaxForm method="PUT" action="/api/user/{user.id}" noReset={true} on:success={handleSuccess} on:error={handleError}>
 		<div class="grid grid-2">
 			<div>
 				<label for="firstname">First name:</label><br>
