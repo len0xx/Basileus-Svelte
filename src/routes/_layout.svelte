@@ -4,7 +4,7 @@
 
 	export async function preload(page: Page, session: Session) {
 		return {
-			user: session.user || undefined
+			user: session.user
 		}
 	}
 </script>

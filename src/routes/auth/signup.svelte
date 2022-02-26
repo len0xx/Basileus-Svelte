@@ -7,8 +7,6 @@
 		if (loggedIn) {
 			this.redirect(302, '/auth/login')
 		}
-
-		return { user: session.user }
 	}
 </script>
 
@@ -33,22 +31,29 @@
 	}
 </script>
 
-<h1>Sign up</h1>
+<style lang="sass">
+	section.container
+		max-width: 450px
+		margin: 0 auto
+</style>
 
-<AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError}>
-	{ #if success }
-		<p class="success">Account created</p>
-	{ :else if errorText }
-		<p class="error">{ errorText }</p>
-	{/if }
-	<label for="firstname">First name:</label><br>
-	<input type="text" name="firstname" required><br>
-	<label for="lastname">Last name:</label><br>
-	<input type="text" name="lastname"><br>
-	<label for="text">Email:</label><br>
-	<input type="email" name="email" required><br>
-	<label for="password">Password:</label><br>
-	<input type="password" name="password" required><br>
-	
-	<Button actionType="submit" variant="primary">Sign up</Button>
-</AjaxForm>
+<section class="container">
+	<h1>Sign up</h1>
+	<AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError}>
+		{ #if success }
+			<p class="success">Account created</p>
+		{ :else if errorText }
+			<p class="error">{ errorText }</p>
+		{/if }
+		<label for="firstname">First name:</label><br>
+		<input type="text" name="firstname" required><br>
+		<label for="lastname">Last name:</label><br>
+		<input type="text" name="lastname"><br>
+		<label for="text">Email:</label><br>
+		<input type="email" name="email" required><br>
+		<label for="password">Password:</label><br>
+		<input type="password" name="password" required><br>
+		
+		<Button actionType="submit" variant="primary">Sign up</Button>
+	</AjaxForm>
+</section>

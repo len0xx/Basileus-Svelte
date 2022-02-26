@@ -7,10 +7,6 @@
 		if (loggedIn) {
 			this.redirect(302, '/profile')
 		}
-
-		return {
-			user: session.user || undefined
-		}
 	}
 </script>
 
@@ -36,18 +32,25 @@
 	}
 </script>
 
-<h1>Log in</h1>
+<style lang="sass">
+	section.container
+		max-width: 450px
+		margin: 0 auto
+</style>
 
-<AjaxForm action="/api/auth/login" method="GET" on:success={handleSuccess} on:error={handleError}>
-	{ #if success }
-		<p class="success">Logged in successfully</p>
-	{ :else if errorText }
-		<p class="error">{ errorText }</p>
-	{/if }
-	<label for="email">Email:</label><br>
-	<input type="email" name="email" required><br>
-	<label for="password">Password:</label><br>
-	<input type="password" name="password" required><br>
-	
-	<Button actionType="submit" variant="primary">Log in</Button>
-</AjaxForm>
+<section class="container">
+	<h1>Log in</h1>
+	<AjaxForm action="/api/auth/login" method="GET" on:success={handleSuccess} on:error={handleError}>
+		{ #if success }
+			<p class="success">Logged in successfully</p>
+		{ :else if errorText }
+			<p class="error">{ errorText }</p>
+		{/if }
+		<label for="email">Email:</label><br>
+		<input type="email" name="email" required><br>
+		<label for="password">Password:</label><br>
+		<input type="password" name="password" required><br>
+		
+		<Button actionType="submit" variant="primary">Log in</Button>
+	</AjaxForm>
+</section>
