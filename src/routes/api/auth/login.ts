@@ -43,8 +43,7 @@ export async function get(req: ExtendedRequest, res: Response) {
 
 		res.cookie('token', token, { maxAge: 86400 * 1000 * 30, httpOnly: true })
 		res.json({
-			ok: true,
-			accessToken: token
+			ok: true
 		})
 	}
 	catch(err) {

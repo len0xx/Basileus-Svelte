@@ -9,7 +9,6 @@ export interface Page {
 }
 
 export interface Session {
-    token?: string,
 	user?: User
 }
 
