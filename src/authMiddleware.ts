@@ -6,7 +6,7 @@ import type { Response, NextFunction } from 'express'
 import type { ExtendedRequest } from './types'
 
 // For some reason storing this function in a separate file makes the client build much heavier
-export default async function authorize(req: ExtendedRequest, res: Response, next: NextFunction): Promise<void> {
+export default async function authorize(req: ExtendedRequest, res: Response, next: NextFunction) {
 	jwt.verify(req.cookies['token'], process.env.SECRET, async function (error: any, decode: any) {
 		let user: User | undefined = undefined
 
