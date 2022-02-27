@@ -24,6 +24,8 @@
 </script>
 
 <script lang="ts">
+	import { UserRole } from "../../models/user"
+
 	export let posts: Post[]
 	export let user: User | undefined = undefined
 
@@ -79,14 +81,16 @@
 		<Button actionType="submit">Save</Button>
 	</AjaxForm>
 </section>
-<br>
-<h1>Your recent posts:</h1>
-{ #if posts.length }
-	<div class="posts-wrapper">
-		{ #each posts as post }
-			<PostCard post={post} />
-		{/each }
-	</div>
-{ :else }
-	<p>No posts here yet</p>
-{/if }
+{ #if user.role == UserRole.ADMIN }
+	<br>
+	<h1>Your recent posts:</h1>
+	{ #if posts.length }
+		<div class="posts-wrapper">
+			{ #each posts as post }
+				<PostCard post={post} />
+			{/each }
+		</div>
+	{ :else }
+		<p>No posts here yet</p>
+	{/if }
+{ /if }
