@@ -14,7 +14,7 @@ export default async function authorize(req: ExtendedRequest, res: Response, nex
 			try {
 				const userObj = await UserModel.findOne({ _id: decode.id })
 
-				user = getPublicUserModel(userObj)
+				req.user = user = getPublicUserModel(userObj)
 			}
 			catch(err) {
 				console.error(err)
