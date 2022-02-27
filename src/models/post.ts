@@ -33,7 +33,7 @@ export interface PostObject {
     title: string,
     text: string,
 	author: string,
-	created: Date
+	created: string
 }
 
 // Frontend model
@@ -43,4 +43,14 @@ export interface Post {
     text: string,
 	author: string,
 	created: Date
+}
+
+export function getPublicPostModel(post: PostObject): Post {
+	return {
+		slug: post.slug,
+		title: post.title,
+		text: post.text,
+		author: post.author,
+		created: new Date(post.created)
+	}
 }
