@@ -63,9 +63,15 @@ export interface User {
     id: string,
     firstname: string,
     lastname?: string,
+	fullname: string,
     email: string,
     role: UserRole,
 	age: number
+}
+
+function getFullName(user: UserObject): string {
+	const parts = [user.firstname, user.lastname].filter(i => !!i)
+	return parts.join(' ')
 }
 
 // Convert UserObject to User
@@ -74,6 +80,7 @@ export function getPublicUserModel(user: UserObject): User {
 		id: user._id.toString(),
 		firstname: user.firstname,
 		lastname: user.lastname,
+		fullname: getFullName(user),
 		email: user.email,
 		role: user.role,
 		age: user.age
