@@ -91,3 +91,7 @@ export function sendAJAXRequest(
 
 const redirectDelay = 500
 export const redirect = (location: string) => setTimeout(() => { window.location.href = location }, redirectDelay)
+
+const doubleDigit = (num: number): string => num < 10 ? `0${num}` : num.toString()
+
+export const formatDate = (date: Date): string => `${doubleDigit(date.getDate())}.${doubleDigit(date.getMonth() + 1)}.${date.getFullYear()}`
