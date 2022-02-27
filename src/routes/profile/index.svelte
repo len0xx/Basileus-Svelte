@@ -24,7 +24,7 @@
 </script>
 
 <script lang="ts">
-	import { UserRole } from "../../models/user"
+	import { UserRole } from '../../models/user'
 
 	export let posts: Post[]
 	export let user: User | undefined = undefined
