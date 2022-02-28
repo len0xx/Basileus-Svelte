@@ -71,7 +71,7 @@
 	<div class="post-content">
 		{@html post.text.replace(/\r/g, '').replace(/\n/g, '<br>')}
 	</div>
-	{ #if user && user.role == UserRole.ADMIN }
+	{ #if user && user.role == UserRole.ADMIN && author.id == user.id }
 		<div class="buttons">
 			{ #if active }
 				<Button actionType="delete" variant="danger" on:click={deletePost}>Delete this post</Button>
