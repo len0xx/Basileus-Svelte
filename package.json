@@ -1,10 +1,10 @@
 {
   "name": "basileus",
   "description": "Simple blog application",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "esModuleInterop": true,
   "scripts": {
-    "dev": "sapper dev",
+    "dev": "export PORT=57648 && sapper dev",
     "build": "sapper build --legacy && ./prepare-prod.sh",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build",
