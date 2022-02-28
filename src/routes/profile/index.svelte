@@ -13,7 +13,7 @@
 			this.redirect(302, '/auth/login')
 		}
 
-		const postsResponse = await this.fetch(`/api/post/list?author=${session.user.id}`)
+		const postsResponse = await this.fetch(`http://${page.host}` + `/api/post/list?author=${session.user.id}`)
 		const postsObj = await postsResponse.json()
 
 		return {
@@ -84,7 +84,7 @@
 { #if user.role == UserRole.ADMIN }
 	<br>
 	<h1>Your recent posts:</h1>
-	{ #if posts.length }
+	{ #if posts && posts.length }
 		<div class="posts-wrapper">
 			{ #each posts as post }
 				<PostCard post={post} />

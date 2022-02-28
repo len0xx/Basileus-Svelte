@@ -5,10 +5,10 @@
 	import type { Page, Session } from '../../types'
 
 	export async function preload(page: Page, session: Session) {
-		const postResponse = await this.fetch(`/api/post/${page.params.slug}`)
+		const postResponse = await this.fetch(`http://${page.host}` + `/api/post/${page.params.slug}`)
 		const post = await postResponse.json()
 
-		const authorResponse = await this.fetch(`/api/user/${post.author}`)
+		const authorResponse = await this.fetch(`http://${page.host}` + `/api/user/${post.author}`)
 		const author = await authorResponse.json()
 
 		return {

@@ -7,12 +7,12 @@ import mongoose from 'mongoose'
 import express from 'express'
 import authorize from './authMiddleware'
 
-const { PORT, NODE_ENV } = process.env
-const dev = NODE_ENV === 'development'
-
 dotenv.config()
 
-mongoose.connect(process.env.DATABASE_URL)
+const { APP_PORT, APP_IP, NODE_ENV, DB_CONNECTION_STRING } = process.env
+const dev = NODE_ENV === 'development'
+
+mongoose.connect(DB_CONNECTION_STRING)
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('DB connected'))
@@ -26,4 +26,4 @@ app.use(compression({ threshold: 0 }))
 app.use(sirv('static', { dev }))
 app.use(authorize)
 
-app.listen(PORT, () => console.log('Server runs on port ' + PORT))
+app.listen(+APP_PORT, APP_IP, () => console.log('Server runs on port ' + APP_PORT))

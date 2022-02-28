@@ -6,7 +6,7 @@
     	const id = page.params.id
 
     	try {
-    		const profileResponse = await this.fetch(`/api/user/${id}`)
+    		const profileResponse = await this.fetch(`http://${page.host}` + `/api/user/${id}`)
     		const profileJSON = await profileResponse.json()
 
     		return {
