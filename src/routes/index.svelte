@@ -42,10 +42,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Basileus</title>
-</svelte:head>
-
 <style lang="sass">
 	.posts-wrapper
 		display: grid
@@ -67,6 +63,10 @@
 		&:hover
 			text-decoration: underline
 </style>
+
+<svelte:head>
+	<title>Basileus</title>
+</svelte:head>
 
 <section class="container">
 	<input type="text" class="no-margin wide" bind:value={searchQuery} on:input={updateSearchResults} name="search" placeholder="Search posts..">

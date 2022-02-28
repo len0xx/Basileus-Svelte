@@ -39,7 +39,6 @@
 </style>
 
 <Header on:menuClicked={toggleMenu} />
-
 <main>
 	<Menu opened={menuOpened} {user} />
 	<div class="content-wrapper" on:click={closeMenu}>

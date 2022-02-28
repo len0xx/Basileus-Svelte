@@ -4,15 +4,6 @@
     const dispatch = createEventDispatcher()
 </script>
 
-<header>
-    <div on:click={() => dispatch('menuClicked')} class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <a href="/">Basileus</a>
-</header>
-
 <style lang="sass">
     header
         display: block
@@ -45,3 +36,12 @@
                 &:last-of-type
                     margin-bottom: 0
 </style>
+
+<header>
+    <div on:click={() => dispatch('menuClicked')} class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <a href="/">Basileus</a>
+</header>

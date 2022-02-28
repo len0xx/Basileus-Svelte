@@ -1,8 +1,3 @@
-<article>
-    <a href="/post/{post.slug}"><h1>{ post.title }</h1></a>
-    <p>{ cutPostText(post.text) }</p>
-</article>
-
 <script lang="ts">
 	import { cutPostText } from '../utilities'
 	import type { Post } from '../models/post'
@@ -21,3 +16,8 @@
         &:hover
             box-shadow: 1px 3px 6px 1px rgba(0, 0, 0, 0.15)
 </style>
+
+<article>
+    <a href="/post/{post.slug}"><h1>{ post.title }</h1></a>
+    <p>{ cutPostText(post.text) }</p>
+</article>

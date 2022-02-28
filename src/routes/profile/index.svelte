@@ -37,10 +37,6 @@
 	function handleError(event: CustomEvent<any>) { errorText = event.detail.error }
 </script>
 
-<svelte:head>
-	<title>Basileus – Profile</title>
-</svelte:head>
-
 <style lang="sass">
 	.posts-wrapper
 		display: grid
@@ -48,6 +44,10 @@
 		grid-template-columns: 1fr
 		gap: 1.5em
 </style>
+
+<svelte:head>
+	<title>Basileus – Profile</title>
+</svelte:head>
 
 <section class="container">
 	<h1>Welcome, { user ? user.firstname : 'unknown' }</h1>

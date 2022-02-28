@@ -10,10 +10,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Basileus – Log in</title>
-</svelte:head>
-
 <script lang="ts">
 	import AjaxForm from '../../components/AjaxForm.svelte'
 	import Button from '../../components/Button.svelte'
@@ -37,6 +33,10 @@
 		max-width: 450px
 		margin: 0 auto
 </style>
+
+<svelte:head>
+	<title>Basileus – Log in</title>
+</svelte:head>
 
 <section class="container">
 	<h1>Log in</h1>

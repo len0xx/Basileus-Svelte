@@ -1,13 +1,3 @@
-<div class="paginator">
-	{ #each pageNumbers as num }
-		<a href="{applyPageNumber(finalLink, num)}">
-			<span class={active == num ? 'page-num active' : 'page-num'}>
-				{num}
-			</span>
-		</a>
-	{ /each }
-</div>
-
 <script lang="ts">
 	export let active: number
 	export let pages: number
@@ -64,3 +54,13 @@
 				background-color: blue
 				color: white
 </style>
+
+<div class="paginator">
+	{ #each pageNumbers as num }
+		<a href="{applyPageNumber(finalLink, num)}">
+			<span class={active == num ? 'page-num active' : 'page-num'}>
+				{num}
+			</span>
+		</a>
+	{ /each }
+</div>

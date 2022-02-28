@@ -1,13 +1,13 @@
-<svelte:head>
-	<title>Basileus – About</title>
-</svelte:head>
-
 <style lang="sass">
 	a
 		color: blue
 		&:hover
 			text-decoration: underline
 </style>
+
+<svelte:head>
+	<title>Basileus – About</title>
+</svelte:head>
 
 <section class="container">
 	<h1>About</h1>

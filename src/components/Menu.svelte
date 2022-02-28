@@ -1,20 +1,3 @@
-<aside class:opened={opened}>
-    <ul>
-        <a href="/"><li>Home</li></a>
-        <a href="/about"><li>About</li></a>
-        { #if user }
-            { #if user.role == UserRole.ADMIN }
-                <a href="/post/new"><li>New post</li></a>
-            {/if }
-            <a href="/profile"><li>Profile</li></a>
-            <a href="/auth/logout"><li>Log out</li></a>
-        { :else }
-            <a href="/auth/login"><li>Log in</li></a>
-            <a href="/auth/signup"><li>Sign up</li></a>
-        {/if }
-    </ul>
-</aside>
-
 <script lang="ts">
     import { UserRole } from '../models/user'
     import type { User } from '../models/user'
@@ -51,3 +34,20 @@
     :global(aside.opened)
         transform: translateX(0) !important
 </style>
+
+<aside class:opened={opened}>
+    <ul>
+        <a href="/"><li>Home</li></a>
+        <a href="/about"><li>About</li></a>
+        { #if user }
+            { #if user.role == UserRole.ADMIN }
+                <a href="/post/new"><li>New post</li></a>
+            {/if }
+            <a href="/profile"><li>Profile</li></a>
+            <a href="/auth/logout"><li>Log out</li></a>
+        { :else }
+            <a href="/auth/login"><li>Log in</li></a>
+            <a href="/auth/signup"><li>Sign up</li></a>
+        {/if }
+    </ul>
+</aside>

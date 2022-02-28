@@ -1,7 +1,3 @@
-<button type={actionType} class={className} on:click>
-    <slot></slot>
-</button>
-
 <script lang="ts">
     export let actionType = 'submit'
     export let variant = 'primary'
@@ -39,3 +35,7 @@
                 color: #bf190d
             
 </style>
+
+<button type={actionType} class={className} on:click>
+    <slot></slot>
+</button>
