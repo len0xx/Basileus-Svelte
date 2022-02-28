@@ -20,17 +20,17 @@
 			formData,
 			null,
 			(res) => {
-			if (checkOk) {
-				if (res.ok === true) {
+				if (checkOk) {
+					if (res.ok === true) {
+						dispatch('success', res)
+					}
+					else if (res.ok === false) {
+						dispatch('error', res)
+					}
+				}
+				else {
 					dispatch('success', res)
 				}
-				else if (res.ok === false) {
-					dispatch('error', res)
-				}
-			}
-			else {
-				dispatch('success', res)
-			}
 				if (!noReset) (e.target as HTMLFormElement).reset()
 			},
 			(res) => { dispatch('error', res) }
