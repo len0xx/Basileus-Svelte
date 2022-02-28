@@ -5,7 +5,7 @@
 	export async function preload(page: Page) {
 		const pageNum = page.query.page ? +page.query.page : 1
 
-		const postsResponse = await this.fetch(`http://${page.host}` + `/api/post/list?page=${pageNum}`)
+		const postsResponse = await this.fetch(`http://${page.host}/api/post/list?page=${pageNum}`)
 		const postsObject = await postsResponse.json()
 		return {
 			posts: postsObject.posts,

@@ -13,7 +13,7 @@
 			this.redirect(302, '/auth/login')
 		}
 
-		const postsResponse = await this.fetch(`http://${page.host}` + `/api/post/list?author=${session.user.id}`)
+		const postsResponse = await this.fetch(`http://${page.host}/api/post/list?author=${session.user.id}`)
 		const postsObj = await postsResponse.json()
 
 		return {
