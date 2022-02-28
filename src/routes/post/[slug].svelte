@@ -64,7 +64,7 @@
 	<h1>{ post.title }</h1>
 	
 	<p class="caption">
-		Author: { author.fullname }<br>
+		Author: <a href="/profile/{author.id}">{ author.fullname }</a><br>
 		{ formatDate(post.created) }
 	</p>
 
