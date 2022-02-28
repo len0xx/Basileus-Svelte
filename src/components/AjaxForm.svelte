@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, createEventDispatcher } from 'svelte'
+    import { createEventDispatcher } from 'svelte'
     import { sendAJAXRequest } from '../utilities'
     import type { RESTMethod } from '../types'
 
@@ -9,40 +9,35 @@
 	export let checkOk = true
     export let method: RESTMethod = 'POST'
 
-    let component: HTMLFormElement
     const dispatch = createEventDispatcher()
 
-    onMount(() => {
-    	component.addEventListener('submit', (e: Event) => {
-    		e.preventDefault()
+	const handleSubmit = (e: Event) => {
+		const formData = new FormData(e.target as HTMLFormElement)
 
-    		const formData = new FormData(component)
-
-    		sendAJAXRequest(
-    			action,
-    			method,
-    			formData,
-    			null,
-    			(res) => {
-				if (checkOk) {
-					if (res.ok === true) {
-						dispatch('success', res)
-					}
-					else if (res.ok === false) {
-						dispatch('error', res)
-					}
-				}
-				else {
+		sendAJAXRequest(
+			action,
+			method,
+			formData,
+			null,
+			(res) => {
+			if (checkOk) {
+				if (res.ok === true) {
 					dispatch('success', res)
 				}
-    				if (!noReset) component.reset()
-    			},
-    			(res) => { dispatch('error', res) }
-    		)
-    	})
-    })
+				else if (res.ok === false) {
+					dispatch('error', res)
+				}
+			}
+			else {
+				dispatch('success', res)
+			}
+				if (!noReset) (e.target as HTMLFormElement).reset()
+			},
+			(res) => { dispatch('error', res) }
+		)
+	}
 </script>
 
-<form class={className} {action} {method} bind:this="{component}">
+<form class={className} {action} {method} on:submit|preventDefault={handleSubmit}>
     <slot></slot>
 </form>
