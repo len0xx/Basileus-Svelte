@@ -8,7 +8,7 @@ export async function get(req: ExtendedRequest, res: Response) {
 		const perPage = 10
 		const author = req.query.author && req.query.author.toString()
 		const search = req.query.s && req.query.s.toString()
-		const page = req.query.page && +req.query.page
+		const page = req.query.page && +req.query.page || 1
 		const offset = perPage * (page - 1)
 
 		const query: {
