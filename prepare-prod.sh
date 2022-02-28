@@ -8,7 +8,8 @@ dir="build-prod"
 rm -rf $dir
 mkdir $dir
 cp -r __sapper__/build/* $dir
-cp -r static/* $dir
+mkdir $dir/static
+cp -r static/* $dir/static
 cp package*.json $dir
 sed -i -e 's/__sapper__\/build/./g' $dir/server/server.js
 rm $dir/server/server.js-e
