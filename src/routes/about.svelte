@@ -1,10 +1,3 @@
-<script lang="ts">
-	import expressLogo from '../node_modules/images/express.svg'
-	import typescriptLogo from '../node_modules/images/typescript.svg'
-	import svelteLogo from '../node_modules/images/svelte.svg'
-	import mongodbLogo from '../node_modules/images/mongodb.svg'
-</script>
-
 <style lang="sass">
 	a
 		color: blue
@@ -37,22 +30,22 @@
 	<div class="tech-stack">
 		<span>
 			<a href="https://svelte.dev" target="_BLANK">
-				<img src={svelteLogo} alt="Svelte Logo" title="Svelte">
+				<img src="/images/svelte.svg" alt="Svelte Logo" title="Svelte">
 			</a>
 		</span>
 		<span>
 			<a href="https://expressjs.com" target="_BLANK">
-				<img src={expressLogo} alt="ExpressJS Logo" title="ExpressJS">
+				<img src="/images/express.svg" alt="ExpressJS Logo" title="ExpressJS">
 			</a>
 		</span>
 		<span>
 			<a href="https://mongodb.com" target="_BLANK">
-				<img src={mongodbLogo} alt="MongoDB Logo" title="MongoDB">
+				<img src="/images/mongodb.svg" alt="MongoDB Logo" title="MongoDB">
 			</a>
 		</span>
 		<span>
 			<a href="https://typescriptlang.org" target="_BLANK">
-				<img src={typescriptLogo} alt="TypeScript Logo" title="TypeScript">
+				<img src="/images/typescript.svg" alt="TypeScript Logo" title="TypeScript">
 			</a>
 		</span>
 	</div>
