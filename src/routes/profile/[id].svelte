@@ -1,12 +1,13 @@
 <script context="module" lang="ts">
+	import { PROTOCOL } from '../../config'
     import type { Page } from '../../types'
     import type { User } from '../../models/user'
 
     export async function preload(page: Page) {
-    	const id = page.params.id
+		const id = page.params.id
 
     	try {
-    		const profileResponse = await this.fetch(`http://${page.host}/api/user/${id}`)
+    		const profileResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/user/${id}`)
     		const profileJSON = await profileResponse.json()
 
     		return {

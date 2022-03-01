@@ -1,14 +1,15 @@
 <script context="module" lang="ts">
 	import { User, UserRole } from '../../models/user'
 	import { getPublicPostModel } from '../../models/post'
+	import { PROTOCOL } from '../../config'
 	import type { Post } from '../../models/post'
 	import type { Page, Session } from '../../types'
 
 	export async function preload(page: Page, session: Session) {
-		const postResponse = await this.fetch(`http://${page.host}/api/post/${page.params.slug}`)
+		const postResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`)
 		const post = await postResponse.json()
 
-		const authorResponse = await this.fetch(`http://${page.host}/api/user/${post.author}`)
+		const authorResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/user/${post.author}`)
 		const author = await authorResponse.json()
 
 		return {

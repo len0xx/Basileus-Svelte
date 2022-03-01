@@ -1,11 +1,12 @@
 <script context="module" lang="ts">
+	import { PROTOCOL } from '../config'
 	import type { Post } from '../models/post'
 	import type { Page } from '../types'
 
 	export async function preload(page: Page) {
 		const pageNum = page.query.page ? +page.query.page : 1
 
-		const postsResponse = await this.fetch(`http://${page.host}/api/post/list?page=${pageNum}`)
+		const postsResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/post/list?page=${pageNum}`)
 		const postsObject = await postsResponse.json()
 		return {
 			posts: postsObject.posts,
