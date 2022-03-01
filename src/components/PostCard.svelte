@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cutPostText } from '../utilities'
-	import type { Post } from '../models/post'
+    import { cutPostText } from '../utilities'
+    import type { Post } from '../models/post'
 
     export let post: Post
 </script>

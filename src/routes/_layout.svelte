@@ -1,50 +1,50 @@
 <script context="module" lang="ts">
-	import type { User } from '../models/user'
-	import type { Page, Session } from '../types'
+    import type { User } from '../models/user'
+    import type { Page, Session } from '../types'
 
-	export async function preload(page: Page, session: Session) {
-		return {
-			user: session.user
-		}
-	}
+    export async function preload(page: Page, session: Session) {
+        return {
+            user: session.user
+        }
+    }
 </script>
 
 <script lang="ts">
-	import Header from '../components/Header.svelte'
-	import Menu from '../components/Menu.svelte'
-	import Footer from '../components/Footer.svelte'
+    import Header from '../components/Header.svelte'
+    import Menu from '../components/Menu.svelte'
+    import Footer from '../components/Footer.svelte'
 
-	export let user: User | undefined = undefined
-	
-	let menuOpened = false
+    export let user: User | undefined = undefined
+    
+    let menuOpened = false
 
-	const toggleMenu = () => menuOpened = !menuOpened
+    const toggleMenu = () => menuOpened = !menuOpened
 
-	const closeMenu = () => menuOpened = false
+    const closeMenu = () => menuOpened = false
 </script>
 
 <style lang="sass">
-	main
-		position: relative
-		margin: 0 auto
-		box-sizing: border-box
-		min-height: calc(100vh - 80px)
+    main
+        position: relative
+        margin: 0 auto
+        box-sizing: border-box
+        min-height: calc(100vh - 80px)
 
-	.content-wrapper
-		padding: 2em
-	
-	section.content
-		max-width: 768px
-		margin: 0 auto
+    .content-wrapper
+        padding: 2em
+    
+    section.content
+        max-width: 768px
+        margin: 0 auto
 </style>
 
 <Header on:menuClicked={toggleMenu} />
 <main>
-	<Menu opened={menuOpened} {user} />
-	<div class="content-wrapper" on:click={closeMenu}>
-		<section class="content">
-			<slot></slot>
-		</section>
-	</div>
-	<Footer />
+    <Menu opened={menuOpened} {user} />
+    <div class="content-wrapper" on:click={closeMenu}>
+        <section class="content">
+            <slot></slot>
+        </section>
+    </div>
+    <Footer />
 </main>

@@ -5,10 +5,10 @@
     let className: string
 
     if (variant == 'danger') {
-    	className = 'red'
+        className = 'red'
     }
     else if (variant == 'primary') {
-    	className = 'blue'
+        className = 'blue'
     }
 </script>
 

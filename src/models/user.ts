@@ -6,42 +6,42 @@ export enum UserRole {
 } 
 
 const userSchema = new mongoose.Schema({
-	firstname: {
-		type: String,
-		required: [true, 'First name not provided ']
-	},
-	lastname: {
-		type: String
-	},
-	email: {
-		type: String,
-		unique: [true, 'Email already exists in database!'],
-		required: [true, 'Email not provided'],
-		validate: {
-			validator: function (v: string) {
-				return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
-			},
-			message: '{VALUE} is not a valid email!'
-		}
-	},
-	role: {
-		type: String,
-		enum: [...Object.values(UserRole).filter(k => typeof k === 'string')],
-		default: UserRole.USER
-	},
-	password: {
-		type: String,
-		required: true
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	age: {
-		type: Number,
-		min: 1,
-		max: 110
-	}
+    firstname: {
+        type: String,
+        required: [true, 'First name not provided ']
+    },
+    lastname: {
+        type: String
+    },
+    email: {
+        type: String,
+        unique: [true, 'Email already exists in database!'],
+        required: [true, 'Email not provided'],
+        validate: {
+            validator: function (v: string) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+            },
+            message: '{VALUE} is not a valid email!'
+        }
+    },
+    role: {
+        type: String,
+        enum: [...Object.values(UserRole).filter(k => typeof k === 'string')],
+        default: UserRole.USER
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    age: {
+        type: Number,
+        min: 1,
+        max: 110
+    }
 })
 
 export const UserModel = mongoose.model('User', userSchema)
@@ -55,7 +55,7 @@ export interface UserObject {
     role: UserRole,
     password: string,
     created: Date,
-	age: number
+    age: number
 }
 
 // Frontend model
@@ -63,26 +63,26 @@ export interface User {
     id: string,
     firstname: string,
     lastname?: string,
-	fullname: string,
+    fullname: string,
     email: string,
     role: UserRole,
-	age: number
+    age: number
 }
 
 function getFullName(user: UserObject): string {
-	const parts = [user.firstname, user.lastname].filter(i => !!i)
-	return parts.join(' ')
+    const parts = [user.firstname, user.lastname].filter(i => !!i)
+    return parts.join(' ')
 }
 
 // Convert UserObject to User
 export function getPublicUserModel(user: UserObject): User {
-	return {
-		id: user._id.toString(),
-		firstname: user.firstname,
-		lastname: user.lastname,
-		fullname: getFullName(user),
-		email: user.email,
-		role: user.role,
-		age: user.age
-	}
+    return {
+        id: user._id.toString(),
+        firstname: user.firstname,
+        lastname: user.lastname,
+        fullname: getFullName(user),
+        email: user.email,
+        role: user.role,
+        age: user.age
+    }
 }

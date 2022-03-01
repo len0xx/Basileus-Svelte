@@ -2,13 +2,13 @@
     import type { Page, Session } from '../../types'
 
     export async function preload(page: Page, session: Session) {
-    	const loggedIn = !!(session.user)
+        const loggedIn = !!(session.user)
 
-    	if (!loggedIn || session.user.role != UserRole.ADMIN) {
-    		this.redirect(302, '/auth/login')
-    	}
+        if (!loggedIn || session.user.role != UserRole.ADMIN) {
+            this.redirect(302, '/auth/login')
+        }
 
-    	return { user: session.user }
+        return { user: session.user }
     }
 </script>
 
@@ -22,18 +22,18 @@
     let errorText = ''
 
     const handleSuccess = (event: CustomEvent<any>) => {
-    	success = true
-    	const slug = event.detail.slug
-    	redirect(`/post/${slug}`)
+        success = true
+        const slug = event.detail.slug
+        redirect(`/post/${slug}`)
     }
 
     const handleError = (event: CustomEvent<any>) => {
-    	errorText = event.detail.error
+        errorText = event.detail.error
     }
 </script>
 
 <svelte:head>
-	<title>Create a new post</title>
+    <title>Create a new post</title>
 </svelte:head>
 
 <section class="container">

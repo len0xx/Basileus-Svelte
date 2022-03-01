@@ -7,26 +7,26 @@ import type { ExtendedRequest } from './types'
 
 // For some reason storing this function in a separate file makes the client build much heavier
 export default async function authorize(req: ExtendedRequest, res: Response, next: NextFunction) {
-	jwt.verify(req.cookies['token'], process.env.SECRET, async function (error: any, decode: any) {
-		let user: User | undefined = undefined
+    jwt.verify(req.cookies['token'], process.env.SECRET, async function (error: any, decode: any) {
+        let user: User | undefined = undefined
 
-		if (!error) {
-			try {
-				const userObj = await UserModel.findOne({ _id: decode.id })
+        if (!error) {
+            try {
+                const userObj = await UserModel.findOne({ _id: decode.id })
 
-				req.user = user = getPublicUserModel(userObj)
-			}
-			catch(err) {
-				console.error(err)
-			}
-		}
+                req.user = user = getPublicUserModel(userObj)
+            }
+            catch(err) {
+                console.error(err)
+            }
+        }
 
-		return sapper.middleware({
-			session: () => {
-				return {
-					user
-				}
-			}
-		})(req, res, next)
-	})
+        return sapper.middleware({
+            session: () => {
+                return {
+                    user
+                }
+            }
+        })(req, res, next)
+    })
 }
