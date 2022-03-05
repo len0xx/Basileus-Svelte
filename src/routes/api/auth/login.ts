@@ -41,7 +41,7 @@ export async function get(req: ExtendedRequest, res: Response) {
             expiresIn: 86400 * 30
         })
 
-        res.cookie('token', token, { maxAge: 86400 * 1000 * 30, httpOnly: true })
+        res.cookie('token', token, { maxAge: 86400 * 1000 * 30, path: '/', httpOnly: true })
         res.json({
             ok: true
         })
