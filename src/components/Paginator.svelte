@@ -1,18 +1,10 @@
 <script lang="ts">
+    import { encodeQuery } from '../utilities'
+
     export let active: number
     export let pages: number
     export let link: string
     export let queryParams: Record<string, any> = {}
-
-    function encodeQuery(data: Record<string, any>): string {
-        delete data['page']
-        const ret = []
-        for (let d in data) {
-            if (data[d] && data[d] !== '')
-                ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
-        }
-        return ret.join('&')
-    }
 
     const applyPageNumber = (link: string, num: number): string => link.replace('page={}', `page=${num}`)
 

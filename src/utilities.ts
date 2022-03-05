@@ -48,9 +48,10 @@ export function sendAJAXRequest(
     url: string,
     method: RESTMethod,
     data?: FormData | Record<string, string> | null,
-    headers?: JQuery.PlainObject<string> | null,
     callbackSuccess?: (res: DefaultAJAXResponse) => void,
-    callbackError?: (res: string) => void
+    callbackError?: (res: string) => void,
+    csrfToken?: string,
+    headers?: JQuery.PlainObject<string> | null
 ): void {
     let finalData: Record<string, unknown> = {}
 
@@ -60,6 +61,8 @@ export function sendAJAXRequest(
     else if (data) {
         finalData = data
     }
+    
+    if (csrfToken) finalData.csrf = csrfToken
 
     const request = ajax({
         url: url,
@@ -95,3 +98,13 @@ export const redirect = (location: string) => setTimeout(() => { window.location
 const doubleDigit = (num: number): string => num < 10 ? `0${num}` : num.toString()
 
 export const formatDate = (date: Date): string => `${doubleDigit(date.getDate())}.${doubleDigit(date.getMonth() + 1)}.${date.getFullYear()}`
+
+export function encodeQuery(data: Record<string, any>): string {
+    delete data['page']
+    const ret = []
+    for (let d in data) {
+        if (data[d] && data[d] !== '')
+            ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
+    }
+    return ret.join('&')
+}
