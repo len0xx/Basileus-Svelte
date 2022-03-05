@@ -7,10 +7,18 @@
     import type { Page, Session } from '../../types'
 
     export async function preload(page: Page, session: Session) {
-        const postResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+        const postResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`, { 
+                params: {
+                    csrf: session.csrfToken
+                },
+                headers: { cookie: `csrf=${session.csrfToken}` } })
         const post = postResponse.data as any
 
-        const authorResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${post.author}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+        const authorResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${post.author}`, { 
+                params: {
+                    csrf: session.csrfToken
+                },
+                headers: { cookie: `csrf=${session.csrfToken}` } })
         const author = authorResponse.data as any
 
         return {

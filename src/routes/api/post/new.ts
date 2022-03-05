@@ -2,11 +2,21 @@ import { PostModel } from '../../../models/post'
 import { formatSlug } from '../../../utilities'
 import ERRORS from '../../../errors'
 import { UserRole } from '../../../models/user'
+import { isCSRFValid } from '../../../backendUtilities'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 
 export async function post(req: ExtendedRequest, res: Response) {
     try {
+        if (!req.body.csrf || !isCSRFValid(req.body.csrf.toString(), req)) {
+            res.json({
+                ok: false,
+                error: 'Invalid token',
+                errorCode: ERRORS.INVALID_CSRF
+            })
+            return
+        }
+
         if (!req.user || req.user.role != UserRole.ADMIN) {
             res.json({
                 ok: false,

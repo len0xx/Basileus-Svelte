@@ -8,7 +8,11 @@
         const id = page.params.id
 
         try {
-            const profileResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${id}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+            const profileResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${id}`, { 
+                params: {
+                    csrf: session.csrfToken
+                },
+                headers: { cookie: `csrf=${session.csrfToken}` } })
             const profileJSON = profileResponse.data as any
 
             return {

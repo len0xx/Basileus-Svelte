@@ -1,10 +1,20 @@
 import { UserModel, getPublicUserModel } from '../../../models/user'
 import ERRORS from '../../../errors'
+import { isCSRFValid } from '../../../backendUtilities'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 
 export async function get(req: ExtendedRequest, res: Response) {
     try {
+        if (!req.query.csrf || !isCSRFValid(req.query.csrf.toString(), req)) {
+            res.json({
+                ok: false,
+                error: 'Invalid token',
+                errorCode: ERRORS.INVALID_CSRF
+            })
+            return
+        }
+
         const id = req.params.id
 
         const userObject = await UserModel.findOne({ _id: id })
@@ -29,6 +39,15 @@ export async function get(req: ExtendedRequest, res: Response) {
 
 export async function put(req: ExtendedRequest, res: Response) {
     try {
+        if (!req.body.csrf || !isCSRFValid(req.body.csrf.toString(), req)) {
+            res.json({
+                ok: false,
+                error: 'Invalid token',
+                errorCode: ERRORS.INVALID_CSRF
+            })
+            return
+        }
+
         const id = req.params.id
 
         const user = req.user

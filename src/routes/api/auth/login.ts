@@ -2,12 +2,22 @@ import { UserModel } from '../../../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import ERRORS from '../../../errors'
+import { isCSRFValid } from '../../../backendUtilities'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
 import type { UserObject } from '../../../models/user'
 
 export async function get(req: ExtendedRequest, res: Response) {
     try {
+        if (!req.query.csrf || !isCSRFValid(req.query.csrf.toString(), req)) {
+            res.json({
+                ok: false,
+                error: 'Invalid token',
+                errorCode: ERRORS.INVALID_CSRF
+            })
+            return
+        }
+
         const user: UserObject | undefined = await UserModel.findOne({
             email: req.query.email
         })
