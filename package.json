@@ -1,7 +1,7 @@
 {
     "name": "basileus",
     "description": "Simple blog application",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "esModuleInterop": true,
     "scripts": {
         "dev": "export PORT=57648 && sapper dev",
@@ -14,11 +14,12 @@
         "rebuild": "eslint src --fix && sapper build --legacy && sapper dev"
     },
     "dependencies": {
-        "axios": "^0.23.0",
+        "axios": "0.21.1",
         "bcrypt": "^5.0.1",
         "body-parser": "^1.19.2",
         "compression": "^1.7.1",
         "cookie-parser": "^1.4.6",
+        "crypto": "^1.0.1",
         "dotenv": "^16.0.0",
         "express": "^4.17.3",
         "jquery": "^3.6.0",
