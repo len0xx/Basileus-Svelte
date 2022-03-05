@@ -2,20 +2,22 @@
     import { User, UserRole } from '../../models/user'
     import { getPublicPostModel } from '../../models/post'
     import { PROTOCOL } from '../../config'
+    import axios from 'axios'
     import type { Post } from '../../models/post'
     import type { Page, Session } from '../../types'
 
     export async function preload(page: Page, session: Session) {
-        const postResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`)
-        const post = await postResponse.json()
+        const postResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+        const post = postResponse.data as any
 
-        const authorResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/user/${post.author}`)
-        const author = await authorResponse.json()
+        const authorResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${post.author}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+        const author = authorResponse.data as any
 
         return {
             post: getPublicPostModel(post),
             author: author.user,
-            user: session.user
+            user: session.user,
+            csrfToken: session.csrfToken
         }
     }
 </script>
@@ -24,6 +26,7 @@
     import Button from '../../components/Button.svelte'
     import { sendAJAXRequest, formatDate } from '../../utilities'
 
+    export let csrfToken = ''
     export let post: Post
     export let user: User | undefined = undefined
     export let author: User | undefined = undefined
@@ -37,9 +40,9 @@
             `/api/post/${post.slug}`,
             'DELETE',
             formData,
-            null,
             () => active = false,
-            () => alert('Unexpected error occurred while deleting. Please try again later')
+            () => alert('Unexpected error occurred while deleting. Please try again later'),
+            csrfToken
         )
     }
 </script>

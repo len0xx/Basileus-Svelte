@@ -3,6 +3,7 @@
     import Button from '../../components/Button.svelte'
     import PostCard from '../../components/PostCard.svelte'
     import { PROTOCOL } from '../../config'
+    import axios from 'axios'
     import type { Post } from '../../models/post'
     import type { User } from '../../models/user'
     import type { Page, Session } from '../../types'
@@ -14,12 +15,17 @@
             this.redirect(302, '/auth/login')
         }
 
-        const postsResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/post/list?author=${session.user.id}`)
-        const postsObj = await postsResponse.json()
+        const postsResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/list`, { 
+            params: {
+                author: session.user.id,
+                csrf: session.csrfToken
+            }, headers: { cookie: `csrf=${session.csrfToken}` } })
+        const postsObj = postsResponse.data as any
 
         return {
             posts: postsObj.posts,
-            user: session.user
+            user: session.user,
+            csrfToken: session.csrfToken
         }
     }
 </script>
@@ -27,6 +33,7 @@
 <script lang="ts">
     import { UserRole } from '../../models/user'
 
+    export let csrfToken = ''
     export let posts: Post[]
     export let user: User | undefined = undefined
 
@@ -59,7 +66,7 @@
     { :else if errorText }
         <p class="error">{ errorText }</p>
     { /if }
-    <AjaxForm method="PUT" action="/api/user/{user.id}" noReset={true} on:success={handleSuccess} on:error={handleError}>
+    <AjaxForm method="PUT" action="/api/user/{user.id}" noReset={true} on:success={handleSuccess} on:error={handleError} {csrfToken}>
         <div class="grid grid-2">
             <div>
                 <label for="firstname">First name:</label><br>

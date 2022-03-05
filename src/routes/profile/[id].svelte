@@ -1,14 +1,15 @@
 <script context="module" lang="ts">
     import { PROTOCOL } from '../../config'
-    import type { Page } from '../../types'
+    import axios from 'axios'
+    import type { Page, Session } from '../../types'
     import type { User } from '../../models/user'
 
-    export async function preload(page: Page) {
+    export async function preload(page: Page, session: Session) {
         const id = page.params.id
 
         try {
-            const profileResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/user/${id}`)
-            const profileJSON = await profileResponse.json()
+            const profileResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${id}`, { headers: { cookie: `csrf=${session.csrfToken}` } })
+            const profileJSON = profileResponse.data as any
 
             return {
                 profile: profileJSON.user

@@ -9,11 +9,13 @@ export interface Page {
 }
 
 export interface Session {
-    user?: User
+    user?: User,
+    csrfToken: string
 }
 
 export interface ExtendedRequest extends Request {
-    user?: User
+    user?: User,
+    csrfToken: string
 }
 
 export type RESTMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'

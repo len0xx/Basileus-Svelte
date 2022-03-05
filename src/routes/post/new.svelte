@@ -8,7 +8,10 @@
             this.redirect(302, '/auth/login')
         }
 
-        return { user: session.user }
+        return {
+            user: session.user,
+            csrfToken: session.csrfToken
+        }
     }
 </script>
 
@@ -20,6 +23,8 @@
 
     let success = false
     let errorText = ''
+
+    export let csrfToken = ''
 
     const handleSuccess = (event: CustomEvent<any>) => {
         success = true
@@ -38,7 +43,7 @@
 
 <section class="container">
     <h1>New post</h1>
-    <AjaxForm action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError}>
+    <AjaxForm action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError} {csrfToken}>
         { #if success }
             <p class="success">The post has been successfully created</p>
         { :else if errorText }

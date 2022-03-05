@@ -1,17 +1,22 @@
 <script context="module" lang="ts">
     import { PROTOCOL } from '../config'
+    import axios from 'axios'
     import type { Post } from '../models/post'
-    import type { Page } from '../types'
+    import type { Page, Session } from '../types'
 
-    export async function preload(page: Page) {
+    export async function preload(page: Page, session: Session) {
         const pageNum = page.query.page ? +page.query.page : 1
 
-        const postsResponse = await this.fetch(`${PROTOCOL}://${page.host}/api/post/list?page=${pageNum}`)
-        const postsObject = await postsResponse.json()
+        const postsResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/list`, { params: {
+            page: pageNum,
+            csrf: session.csrfToken
+        }, headers: { cookie: `csrf=${session.csrfToken}` } })
+        const postsObject = postsResponse.data
         return {
             posts: postsObject.posts,
             pages: postsObject.pages,
-            page: pageNum
+            page: pageNum,
+            csrfToken: session.csrfToken
         }
     }
 </script>
@@ -24,6 +29,7 @@
     export let posts: Post[]
     export let pages = 1
     export let page = 1
+    export let csrfToken = ''
     let searchQuery = ''
     $: queryParams = {
         s: searchQuery
@@ -34,11 +40,12 @@
             '/api/post/list',
             'GET',
             { s: searchQuery },
-            null,
             (res) => {
                 posts = res.posts
                 pages = res.pages
-            }
+            },
+            () => null,
+            csrfToken
         )
     }
 </script>
@@ -73,7 +80,7 @@
     <input type="text" class="no-margin wide" bind:value={searchQuery} on:input={updateSearchResults} name="search" placeholder="Search posts..">
 </section>
 <br>
-{ #if (posts.length) }
+{ #if (posts && posts.length) }
     <div class="posts-wrapper">
         { #each posts as post }
             <PostCard post={post} />

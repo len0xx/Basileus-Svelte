@@ -5,6 +5,7 @@
 
     export let action = ''
     export let className = ''
+    export let csrfToken = ''
     export let noReset = false
     export let checkOk = true
     export let method: RESTMethod = 'POST'
@@ -18,7 +19,6 @@
             action,
             method,
             formData,
-            null,
             (res) => {
                 if (checkOk) {
                     if (res.ok === true) {
@@ -33,7 +33,8 @@
                 }
                 if (!noReset) (e.target as HTMLFormElement).reset()
             },
-            (res) => { dispatch('error', res) }
+            (res) => { dispatch('error', res) },
+            csrfToken
         )
     }
 </script>

@@ -7,6 +7,10 @@
         if (loggedIn) {
             this.redirect(302, '/auth/login')
         }
+
+        return {
+            csrfToken: session.csrfToken
+        }
     }
 </script>
 
@@ -17,6 +21,8 @@
 
     let success = false
     let errorText = ''
+
+    export let csrfToken = ''
 
     const handleSuccess = () => {
         success = true
@@ -39,7 +45,7 @@
 
 <section class="container">
     <h1>Sign up</h1>
-    <AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError}>
+    <AjaxForm action="/api/auth/signup" method="POST" on:success={handleSuccess} on:error={handleError} {csrfToken}>
         { #if success }
             <p class="success">Account created</p>
         { :else if errorText }

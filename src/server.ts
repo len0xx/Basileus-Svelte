@@ -5,7 +5,8 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import express from 'express'
-import authorize from './authMiddleware'
+import authorize from './middlewares/auth'
+import csrfTokenMiddleware from './middlewares/csrfToken'
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression({ threshold: 0 }))
 app.use(sirv('static', { dev }))
+app.use(csrfTokenMiddleware)
 app.use(authorize)
 
-app.listen(+APP_PORT, APP_IP, () => console.log('Server runs on port ' + APP_PORT))
+app.listen(+APP_PORT, APP_IP, () => console.log('Server runs on ' + APP_IP + ':' + APP_PORT))
