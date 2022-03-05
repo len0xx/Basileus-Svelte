@@ -4,5 +4,6 @@ export default {
     UNAUTHORIZED: 3,
     NO_PERMISSION: 4,
     NOT_FOUND: 5,
-    INVALID_DATA: 6
+    INVALID_DATA: 6,
+    INVALID_CSRF: 7
 }
