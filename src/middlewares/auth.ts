@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
-import { getPublicUserModel, UserModel } from './models/user'
+import { getPublicUserModel, UserModel } from '../models/user'
 import * as sapper from '@sapper/server'
-import type { User } from './models/user'
+import type { User } from '../models/user'
 import type { Response, NextFunction } from 'express'
-import type { ExtendedRequest } from './types'
+import type { ExtendedRequest } from '../types'
 
 // For some reason storing this function in a separate file makes the client build much heavier
 export default async function authorize(req: ExtendedRequest, res: Response, next: NextFunction) {
@@ -24,7 +24,8 @@ export default async function authorize(req: ExtendedRequest, res: Response, nex
         return sapper.middleware({
             session: () => {
                 return {
-                    user
+                    user,
+                    csrfToken: req.csrfToken
                 }
             }
         })(req, res, next)
