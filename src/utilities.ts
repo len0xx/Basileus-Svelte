@@ -21,6 +21,12 @@ export function formatSlug(input: string): string {
     return tokens.join('-')
 }
 
+export function stripTags(str: string): string {
+    return str.replace(/<br>/gi, "\n")
+        // .replace(/<\/p>/gi, "\n")
+        .replace(/<(?:.|\s)*?>/g, "")
+}
+
 // Cut the long text into short version
 export function cutPostText(text: string): string {
     const maxTextLength = 100
@@ -47,7 +53,7 @@ export function transformFormData(form: FormData): Record<string, unknown> {
 export function sendAJAXRequest(
     url: string,
     method: RESTMethod,
-    data?: FormData | Record<string, string> | null,
+    data?: FormData | Record<string, any> | null,
     callbackSuccess?: (res: DefaultAJAXResponse) => void,
     callbackError?: (res: string) => void,
     csrfToken?: string,
@@ -64,13 +70,53 @@ export function sendAJAXRequest(
     
     if (csrfToken) finalData.csrf = csrfToken
 
+    const _headers = headers || {}
+
+    let contentType = 'application/x-www-form-urlencoded'
+    if (Object.keys(_headers).includes('Content-Type')) contentType = _headers['Content-Type']
+
     const request = ajax({
-        url: url,
-        contentType: 'application/x-www-form-urlencoded',
-        headers: headers || {},
+        url,
+        contentType,
+        headers: _headers,
         type: method,
         data: finalData,
-        dataType: 'json'
+        dataType: 'json',
+    })
+
+    request.done((res) => {
+        if (res.ok === true) {
+            if (callbackSuccess) callbackSuccess(res)
+        }
+        else if (res.ok === false) {
+            if (callbackError) callbackError(res)
+            console.error(res)
+        }
+        else {
+            if (callbackSuccess) callbackSuccess(res)
+        }
+    })
+
+    request.fail((jqXHR, res) => {
+        if (callbackError) callbackError(res)
+        console.error(res)
+    })
+}
+
+export function uploadFileAJAX(
+    url: string,
+    method: RESTMethod,
+    data: FormData,
+    callbackSuccess?: (res: DefaultAJAXResponse) => void,
+    callbackError?: (res: string) => void
+): void {
+    const request = ajax({
+        url,
+        contentType: false,
+        processData: false,
+        type: method,
+        data: data,
+        dataType: 'json',
     })
 
     request.done((res) => {

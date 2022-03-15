@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cutPostText } from '../utilities'
+    import { cutPostText, stripTags } from '../utilities'
     import type { Post } from '../models/post'
 
     export let post: Post
@@ -19,5 +19,5 @@
 
 <article>
     <a href="/post/{post.slug}"><h1>{ post.title }</h1></a>
-    <p>{ cutPostText(post.text) }</p>
+    <p>{ cutPostText(stripTags(post.text)) }</p>
 </article>

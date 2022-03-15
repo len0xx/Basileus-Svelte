@@ -66,6 +66,13 @@
         color: #888
         font-size: 0.9em
         margin: 1.2em 0
+
+    :global(.post-content img)
+        max-width: 100%
+
+    :global(.post-content h1, h2, h3, h4, h5, h6)
+        margin: 1em 0
+
 </style>
 
 <svelte:head>

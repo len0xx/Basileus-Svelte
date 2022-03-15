@@ -16,6 +16,7 @@
 </script>
 
 <script lang="ts">
+    import TipTap from '../../components/TipTap.svelte'
     import AjaxForm from '../../components/AjaxForm.svelte'
     import Button from '../../components/Button.svelte'
     import { UserRole } from '../../models/user'
@@ -43,7 +44,7 @@
 
 <section class="container">
     <h1>New post</h1>
-    <AjaxForm action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError} {csrfToken}>
+    <AjaxForm noReset={true} action="/api/post/new" method="POST" on:success={handleSuccess} on:error={handleError} {csrfToken}>
         { #if success }
             <p class="success">The post has been successfully created</p>
         { :else if errorText }
@@ -52,7 +53,8 @@
         <label for="title">Title:</label><br>
         <input type="text" name="title"><br>
         <label for="text">Text:</label><br>
-        <textarea name="text" cols="30" rows="10"></textarea><br>
+        <!-- <textarea name="text" cols="30" rows="10"></textarea><br> -->
+        <TipTap name="text" />
         <Button actionType="submit">Create</Button>
     </AjaxForm>
 </section>
