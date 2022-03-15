@@ -1,4 +1,5 @@
 import { ajax } from 'jquery'
+import superagent from 'superagent'
 import type { RESTMethod, DefaultAJAXResponse } from './types'
 
 // Create slug from the title
@@ -22,9 +23,9 @@ export function formatSlug(input: string): string {
 }
 
 export function stripTags(str: string): string {
-    return str.replace(/<br>/gi, "\n")
-        // .replace(/<\/p>/gi, "\n")
-        .replace(/<(?:.|\s)*?>/g, "")
+    return str.replace(/<br>/gi, '\n')
+        // .replace(/<\/p>/gi, '\n')
+        .replace(/<(?:.|\s)*?>/g, '')
 }
 
 // Cut the long text into short version
@@ -50,7 +51,25 @@ export function transformFormData(form: FormData): Record<string, unknown> {
     return object
 }
 
-export function sendAJAXRequest(
+function responseCallback(
+    res: any,
+    callbackSuccess?: (res: any) => void,
+    callbackError?: (res: any) => void
+) {
+    if (res.ok === true) {
+        if (callbackSuccess) callbackSuccess(res)
+    }
+    else if (res.ok === false) {
+        if (callbackError) callbackError(res)
+        console.error(res)
+    }
+    else {
+        if (callbackSuccess) callbackSuccess(res)
+    }
+}
+
+// Функция для отправки AJAX запросов с клиента
+export function sendWindowAJAX(
     url: string,
     method: RESTMethod,
     data?: FormData | Record<string, any> | null,
@@ -84,23 +103,31 @@ export function sendAJAXRequest(
         dataType: 'json',
     })
 
-    request.done((res) => {
-        if (res.ok === true) {
-            if (callbackSuccess) callbackSuccess(res)
-        }
-        else if (res.ok === false) {
-            if (callbackError) callbackError(res)
-            console.error(res)
-        }
-        else {
-            if (callbackSuccess) callbackSuccess(res)
-        }
-    })
+    request.done((res: any) => responseCallback(res, callbackSuccess, callbackError))
 
     request.fail((jqXHR, res) => {
         if (callbackError) callbackError(res)
         console.error(res)
     })
+}
+
+// Функция для отправки AJAX запросов с сервера
+export async function sendNodeAJAX(
+    url: string,
+    method: RESTMethod,
+    data?: Record<string, any>,
+    headers?: Record<string, any>
+): Promise<Record<string, any>> {
+    let response: any
+    if (!headers) headers = {}
+
+    if (method == 'GET') response = await superagent.get(url).query(data).set(headers || {})
+    else if (method == 'POST') response = await superagent.post(url).send(data).set(headers || {})
+    else if (method == 'PUT') response = await superagent.put(url).send(data).set(headers || {})
+    else if (method == 'PATCH') response = await superagent.patch(url).send(data).set(headers || {})
+    else if (method == 'DELETE') response = await superagent.del(url).send(data).set(headers || {})
+
+    return JSON.parse(response.text)
 }
 
 export function uploadFileAJAX(
@@ -119,18 +146,7 @@ export function uploadFileAJAX(
         dataType: 'json',
     })
 
-    request.done((res) => {
-        if (res.ok === true) {
-            if (callbackSuccess) callbackSuccess(res)
-        }
-        else if (res.ok === false) {
-            if (callbackError) callbackError(res)
-            console.error(res)
-        }
-        else {
-            if (callbackSuccess) callbackSuccess(res)
-        }
-    })
+    request.done((res: any) => responseCallback(res, callbackSuccess, callbackError))
 
     request.fail((jqXHR, res) => {
         if (callbackError) callbackError(res)
@@ -148,7 +164,7 @@ export const formatDate = (date: Date): string => `${doubleDigit(date.getDate())
 export function encodeQuery(data: Record<string, any>): string {
     delete data['page']
     const ret = []
-    for (let d in data) {
+    for (const d in data) {
         if (data[d] && data[d] !== '')
             ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
     }

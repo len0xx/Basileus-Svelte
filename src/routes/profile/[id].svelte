@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
     import { PROTOCOL } from '../../config'
-    import axios from 'axios'
+    import { sendNodeAJAX } from '../../utilities'
     import type { Page, Session } from '../../types'
     import type { User } from '../../models/user'
 
@@ -8,12 +8,12 @@
         const id = page.params.id
 
         try {
-            const profileResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${id}`, { 
-                params: {
-                    csrf: session.csrfToken
-                },
-                headers: { cookie: `csrf=${session.csrfToken}` } })
-            const profileJSON = profileResponse.data as any
+            const profileJSON = await sendNodeAJAX(
+                `${PROTOCOL}://${page.host}/api/user/${id}`,
+                'GET',
+                { csrf: session.csrfToken },
+                { cookie: `csrf=${session.csrfToken}` }
+            )
 
             return {
                 profile: profileJSON.user

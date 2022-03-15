@@ -30,6 +30,6 @@ export const upload = multer({
             return cb(null, true)
         }
       
-        cb(new Error("Error: File upload only supports the " + "following filetypes - " + filetypes))
-      }
+        cb(new Error('Error: File upload only supports the ' + 'following filetypes - ' + filetypes))
+    }
 })

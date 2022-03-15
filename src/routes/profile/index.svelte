@@ -3,7 +3,7 @@
     import Button from '../../components/Button.svelte'
     import PostCard from '../../components/PostCard.svelte'
     import { PROTOCOL } from '../../config'
-    import axios from 'axios'
+    import { sendNodeAJAX } from '../../utilities'
     import type { Post } from '../../models/post'
     import type { User } from '../../models/user'
     import type { Page, Session } from '../../types'
@@ -15,12 +15,15 @@
             this.redirect(302, '/auth/login')
         }
 
-        const postsResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/list`, { 
-            params: {
+        const postsObj = await sendNodeAJAX(
+            `${PROTOCOL}://${page.host}/api/post/list`,
+            'GET',
+            {
                 author: session.user.id,
                 csrf: session.csrfToken
-            }, headers: { cookie: `csrf=${session.csrfToken}` } })
-        const postsObj = postsResponse.data as any
+            },
+            { cookie: `csrf=${session.csrfToken}` }
+        )
 
         return {
             posts: postsObj.posts,

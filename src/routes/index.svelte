@@ -1,17 +1,22 @@
 <script context="module" lang="ts">
     import { PROTOCOL } from '../config'
-    import axios from 'axios'
+    import { sendNodeAJAX } from '../utilities'
     import type { Post } from '../models/post'
     import type { Page, Session } from '../types'
 
     export async function preload(page: Page, session: Session) {
         const pageNum = page.query.page ? +page.query.page : 1
 
-        const postsResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/list`, { params: {
-            page: pageNum,
-            csrf: session.csrfToken
-        }, headers: { cookie: `csrf=${session.csrfToken}` } })
-        const postsObject = postsResponse.data
+        const postsObject = await sendNodeAJAX(
+            `${PROTOCOL}://${page.host}/api/post/list`,
+            'GET',
+            {
+                page: pageNum,
+                csrf: session.csrfToken
+            }, 
+            { cookie: `csrf=${session.csrfToken}` }
+        )
+
         return {
             posts: postsObject.posts,
             pages: postsObject.pages,
@@ -24,7 +29,7 @@
 <script lang="ts">
     import PostCard from '../components/PostCard.svelte'
     import Paginator from '../components/Paginator.svelte'
-    import { sendAJAXRequest } from '../utilities'
+    import { sendWindowAJAX } from '../utilities'
 
     export let posts: Post[]
     export let pages = 1
@@ -36,7 +41,7 @@
     }
 
     const updateSearchResults = () => {
-        sendAJAXRequest(
+        sendWindowAJAX(
             '/api/post/list',
             'GET',
             { s: searchQuery },

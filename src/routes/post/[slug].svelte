@@ -1,25 +1,25 @@
 <script context="module" lang="ts">
     import { User, UserRole } from '../../models/user'
-    import { getPublicPostModel } from '../../models/post'
+    import { getPublicPostModel, PostObject } from '../../models/post'
     import { PROTOCOL } from '../../config'
-    import axios from 'axios'
+    import { sendNodeAJAX } from '../../utilities'
     import type { Post } from '../../models/post'
     import type { Page, Session } from '../../types'
 
     export async function preload(page: Page, session: Session) {
-        const postResponse = await axios.get(`${PROTOCOL}://${page.host}/api/post/${page.params.slug}`, { 
-                params: {
-                    csrf: session.csrfToken
-                },
-                headers: { cookie: `csrf=${session.csrfToken}` } })
-        const post = postResponse.data as any
+        const post = await sendNodeAJAX(
+            `${PROTOCOL}://${page.host}/api/post/${page.params.slug}`,
+            'GET',
+            { csrf: session.csrfToken },
+            { cookie: `csrf=${session.csrfToken}` }
+        ) as PostObject
 
-        const authorResponse = await axios.get(`${PROTOCOL}://${page.host}/api/user/${post.author}`, { 
-                params: {
-                    csrf: session.csrfToken
-                },
-                headers: { cookie: `csrf=${session.csrfToken}` } })
-        const author = authorResponse.data as any
+        const author = await sendNodeAJAX(
+            `${PROTOCOL}://${page.host}/api/user/${post.author}`,
+            'GET',
+            { csrf: session.csrfToken },
+            { cookie: `csrf=${session.csrfToken}` }
+        )
 
         return {
             post: getPublicPostModel(post),
@@ -32,7 +32,7 @@
 
 <script lang="ts">
     import Button from '../../components/Button.svelte'
-    import { sendAJAXRequest, formatDate } from '../../utilities'
+    import { sendWindowAJAX, formatDate } from '../../utilities'
 
     export let csrfToken = ''
     export let post: Post
@@ -44,7 +44,7 @@
     function deletePost() {
         const formData = new FormData()
 
-        sendAJAXRequest(
+        sendWindowAJAX(
             `/api/post/${post.slug}`,
             'DELETE',
             formData,

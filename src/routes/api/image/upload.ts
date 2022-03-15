@@ -15,7 +15,7 @@ export async function post(req: ExtendedRequest, res: Response) {
             return
         }
         
-        upload.single("image")(req, res, function(err: any) {
+        upload.single('image')(req, res, function(err: any) {
             if (err) {
                 res.json({
                     ok: false,

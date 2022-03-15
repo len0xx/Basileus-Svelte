@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte'
-    import { sendAJAXRequest } from '../utilities'
+    import { sendWindowAJAX } from '../utilities'
     import type { RESTMethod } from '../types'
 
     export let action = ''
@@ -32,7 +32,7 @@
         })
         formData.delete('tiptap-image-upload')
 
-        sendAJAXRequest(
+        sendWindowAJAX(
             action,
             method,
             formData,
