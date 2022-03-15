@@ -53,7 +53,6 @@
         <label for="title">Title:</label><br>
         <input type="text" name="title"><br>
         <label for="text">Text:</label><br>
-        <!-- <textarea name="text" cols="30" rows="10"></textarea><br> -->
         <TipTap name="text" />
         <Button actionType="submit">Create</Button>
     </AjaxForm>
