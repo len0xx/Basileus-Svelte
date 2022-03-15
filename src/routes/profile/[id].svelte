@@ -15,6 +15,11 @@
                 { cookie: `csrf=${session.csrfToken}` }
             )
 
+            if (!profileJSON.user) {
+            this.error(404, 'The user was not found')
+            return
+        }
+
             return {
                 profile: profileJSON.user
             }
