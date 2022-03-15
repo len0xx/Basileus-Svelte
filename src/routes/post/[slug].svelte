@@ -79,7 +79,7 @@
     <title>{ post.title }</title>
 </svelte:head>
 
-<section class={active ? 'container' : 'container inactive'}>
+<section class="container" class:inactive={!active}>
     <h1>{ post.title }</h1>
     
     <p class="caption">

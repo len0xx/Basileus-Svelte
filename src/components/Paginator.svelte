@@ -50,7 +50,7 @@
 <div class="paginator">
     { #each pageNumbers as num }
         <a href="{applyPageNumber(finalLink, num)}">
-            <span class={active == num ? 'page-num active' : 'page-num'}>
+            <span class="page-num" class:active={active == num}>
                 {num}
             </span>
         </a>
