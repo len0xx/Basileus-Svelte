@@ -14,6 +14,11 @@
             { cookie: `csrf=${session.csrfToken}` }
         ) as PostObject
 
+        if (!post) {
+            this.error(404, 'The post was not found')
+            return
+        }
+
         const author = await sendNodeAJAX(
             `${PROTOCOL}://${page.host}/api/user/${post.author}`,
             'GET',
