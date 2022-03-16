@@ -16,6 +16,8 @@
     "dependencies": {
         "@tiptap/core": "^2.0.0-beta.174",
         "@tiptap/extension-image": "^2.0.0-beta.27",
+        "@tiptap/extension-link": "^2.0.0-beta.36",
+        "@tiptap/extension-underline": "^2.0.0-beta.23",
         "@tiptap/starter-kit": "^2.0.0-beta.183",
         "bcrypt": "^5.0.1",
         "body-parser": "^1.19.2",
