@@ -12,24 +12,9 @@
 
     const dispatch = createEventDispatcher()
 
-    function collectionToArray(coll: HTMLCollection): HTMLElement[] {
-        const arr: HTMLElement[] = []
-        for (let i = 0; i < coll.length; i++) arr.push(coll[i] as HTMLElement)
-        return arr
-    }
-
     const handleSubmit = (e: Event) => {
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        const children = collectionToArray(form.children)
-        children.forEach(child => {
-            if (child.classList.contains('editor')) {
-                const tiptap = child.querySelector('.tiptap-editor')
-                const content = tiptap.children[0].innerHTML
-                const fieldName = tiptap.getAttribute('name')
-                formData.append(fieldName, content)
-            }
-        })
         formData.delete('tiptap-image-upload')
 
         sendWindowAJAX(

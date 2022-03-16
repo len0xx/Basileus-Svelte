@@ -6,8 +6,10 @@
     import Image from '@tiptap/extension-image'
     import Underline from '@tiptap/extension-underline'
     import Link from '@tiptap/extension-link'
+    import type { JSONContent } from '@tiptap/core'
   
     export let name = ''
+    let value: JSONContent = {}
 
     let element: HTMLElement
     let fileUpload: HTMLElement
@@ -26,6 +28,7 @@
             onTransaction: () => {
                 // force re-render so `editor.isActive` works as expected
                 editor = editor
+                value = editor.getJSON()
             },
         })
     })
@@ -171,5 +174,6 @@
         {/if}
     </div>
     
-    <div class="tiptap-editor" {name} bind:this={element} />    
+    <div class="tiptap-editor" bind:this={element} />    
 </div>
+<textarea style="display: none" {name}>{ JSON.stringify(value) }</textarea>

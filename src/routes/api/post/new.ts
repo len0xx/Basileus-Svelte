@@ -3,8 +3,14 @@ import { formatSlug } from '../../../utilities'
 import ERRORS from '../../../errors'
 import { UserRole } from '../../../models/user'
 import { isCSRFValid } from '../../../backendUtilities'
+import { generateHTML } from '@tiptap/html'
+import StarterKit from '@tiptap/starter-kit'
+import Image from '@tiptap/extension-image'
+import Underline from '@tiptap/extension-underline'
+import Link from '@tiptap/extension-link'
 import type { Response } from 'express'
 import type { ExtendedRequest } from '../../../types'
+import type { JSONContent } from '@tiptap/core'
 
 export async function post(req: ExtendedRequest, res: Response) {
     try {
@@ -39,10 +45,30 @@ export async function post(req: ExtendedRequest, res: Response) {
             return
         }
 
+        let textHTML = ''
+        try {
+            textHTML = generateHTML(JSON.parse(text) as JSONContent, [
+                StarterKit,
+                Underline,
+                Link,
+                Image
+            ])
+        }
+        catch(error) {
+            console.error(error)
+
+            res.json({
+                ok: false,
+                errorCode: ERRORS.INVALID_POST_TEXT,
+                error: 'Invalid post text'
+            })
+            return
+        }
+
         const post = new PostModel({
-            title: title,
-            slug: slug,
-            text: text,
+            title,
+            slug,
+            text: textHTML,
             author: req.user.id
         })
 

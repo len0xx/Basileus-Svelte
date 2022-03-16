@@ -170,3 +170,9 @@ export function encodeQuery(data: Record<string, any>): string {
     }
     return ret.join('&')
 }
+
+export function collectionToArray(coll: HTMLCollection): HTMLElement[] {
+    const arr: HTMLElement[] = []
+    for (let i = 0; i < coll.length; i++) arr.push(coll[i] as HTMLElement)
+    return arr
+}

@@ -75,6 +75,9 @@
     :global(.post-content img)
         max-width: 100%
 
+    :global(.post-content a:link)
+        text-decoration: underline
+
     :global(.post-content h1, h2, h3, h4, h5, h6)
         margin: 1em 0
 
