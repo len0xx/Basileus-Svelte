@@ -2,9 +2,17 @@
     import { uploadFileAJAX } from '../utilities'
     import { onMount, onDestroy } from 'svelte'
     import { Editor } from '@tiptap/core'
-    import StarterKit from '@tiptap/starter-kit'
+    import Document from '@tiptap/extension-document'
+    import Text from '@tiptap/extension-text'
+    import Paragraph from '@tiptap/extension-paragraph'
+    import Heading from '@tiptap/extension-heading'
+    import HardBreak from '@tiptap/extension-hard-break'
+    import Bold from '@tiptap/extension-bold'
+    import Italic from '@tiptap/extension-italic'
     import Image from '@tiptap/extension-image'
     import Underline from '@tiptap/extension-underline'
+    import Placeholder from '@tiptap/extension-placeholder'
+    import CharacterCount from '@tiptap/extension-character-count'
     import Link from '@tiptap/extension-link'
     import type { JSONContent } from '@tiptap/core'
   
@@ -14,21 +22,36 @@
     let element: HTMLElement
     let fileUpload: HTMLElement
     let editor: Editor
+    let chars = 0, words = 0
+    const limit = 5000
   
     onMount(() => {
         editor = new Editor({
             element: element,
             extensions: [
-                StarterKit,
+                Text,
+                Heading,
+                Document,
+                Paragraph,
                 Underline,
+                HardBreak,
+                Italic,
                 Image,
-                Link
+                Bold,
+                Link,
+                Placeholder.configure({
+                    placeholder: 'What\s on your mind?',
+                }),
+                CharacterCount.configure({
+                    limit
+                })
             ],
-            content: '<p>Start typing here..</p>',
             onTransaction: () => {
                 // force re-render so `editor.isActive` works as expected
                 editor = editor
                 value = editor.getJSON()
+                chars = editor.storage.characterCount.characters()
+                words = editor.storage.characterCount.words()
             },
         })
     })
@@ -77,11 +100,30 @@
     :global(.editor .tiptap-editor h1, h2, h3, h4, h5, h6)
         margin: 1em 0
 
+    :global(.ProseMirror p.is-editor-empty:first-child::before)
+        color: #AAAAAA
+        content: attr(data-placeholder)
+        float: left
+        height: 0
+        transition: 0.1s ease-in-out
+        pointer-events: none
+
+    :global(.ProseMirror p.is-editor-empty:first-child:hover::before)
+        color: #444444
+
+    .character-count
+        color: #AAAAAA
+        margin-top: 0.6em
+        cursor: default
+        transition: 0.1s ease-in-out
+        &:hover
+            color: #888888
+
     button
         padding: 6px 10px
         border-radius: 4px
         cursor: pointer
-        border: 1px solid #00000000
+        border: none
         background: rgb(240, 240, 240)
         line-height: 1
         &:not(:first-of-type)
@@ -94,7 +136,6 @@
         svg
             fill: #000000
         &.active
-            border: 1px solid #000000
             background-color: #000000
             svg
                 fill: #ffffff
@@ -171,9 +212,14 @@
                 </svg>
             </button>
             <input type="file" disabled name="tiptap-image-upload" bind:this={fileUpload} on:input={fileSelected} style="display: none">
+
         {/if}
     </div>
-    
-    <div class="tiptap-editor" bind:this={element} />    
+    <div class="tiptap-editor" bind:this={element} />
+    <div class="character-count">
+        { chars }/{ limit } characters
+        <br>
+        { words } words
+    </div>
+    <textarea style="display: none" {name}>{ JSON.stringify(value) }</textarea>  
 </div>
-<textarea style="display: none" {name}>{ JSON.stringify(value) }</textarea>

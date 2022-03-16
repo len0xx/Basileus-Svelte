@@ -4,7 +4,13 @@ import ERRORS from '../../../errors'
 import { UserRole } from '../../../models/user'
 import { isCSRFValid } from '../../../backendUtilities'
 import { generateHTML } from '@tiptap/html'
-import StarterKit from '@tiptap/starter-kit'
+import Document from '@tiptap/extension-document'
+import Text from '@tiptap/extension-text'
+import Paragraph from '@tiptap/extension-paragraph'
+import Heading from '@tiptap/extension-heading'
+import HardBreak from '@tiptap/extension-hard-break'
+import Bold from '@tiptap/extension-bold'
+import Italic from '@tiptap/extension-italic'
 import Image from '@tiptap/extension-image'
 import Underline from '@tiptap/extension-underline'
 import Link from '@tiptap/extension-link'
@@ -48,7 +54,13 @@ export async function post(req: ExtendedRequest, res: Response) {
         let textHTML = ''
         try {
             textHTML = generateHTML(JSON.parse(text) as JSONContent, [
-                StarterKit,
+                Document,
+                Text,
+                Paragraph,
+                Bold,
+                Italic,
+                HardBreak,
+                Heading,
                 Underline,
                 Link,
                 Image
